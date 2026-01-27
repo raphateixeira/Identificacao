@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-45e8e462cd760eca75dbd85b13f1b7a2.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.24">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9e15f8fb9e1f2f288bfbe28f6ca11029.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Prof.&nbsp;Dr.&nbsp;Raphael Teixeira">
   <title>Identificação de Sistemas – Ajuste de Reta</title>
@@ -214,7 +214,7 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 <ul>
 <li><strong>Calibração:</strong> - Sensor de temperatura: <span class="math inline">\(n\)</span> amostras e gráfico de dispersão:</li>
 </ul>
-<div id="04a35691" class="cell" data-execution_count="1">
+<div id="ec4bd3c7" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -287,7 +287,7 @@ e_n
 <section id="critério-de-mínimos-quadrados" class="slide level2">
 <h2>Critério de Mínimos Quadrados</h2>
 <p>Erros são a distância vertical entre os pontos medidos e a reta do modelo.</p>
-<div id="34d030d1" class="cell" data-execution_count="2">
+<div id="888287c8" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -326,7 +326,7 @@ e_n
 <h3 id="função-de-custo-1">Função de Custo</h3>
 <p>Para cada escolha de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span>, calcula-se o valor da função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
 <p>Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:</p>
-<div id="5214d7d9" class="cell" data-execution_count="3">
+<div id="2b32bacd" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -348,7 +348,7 @@ e_n
 <section id="solução-python-dos-mínimos-quadrados" class="slide level2">
 <h2>Solução Python dos Mínimos Quadrados</h2>
 <p>Em python os dados podem ser gerados como:</p>
-<div id="90a3c9c4" class="cell" data-execution_count="4">
+<div id="fb201993" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Dados Gerados:</span></span>
@@ -361,7 +361,7 @@ e_n
 <section class="slide level2">
 
 <p>A matriz de regressores <span class="math inline">\(\mathbf{A}\)</span> é construída como:</p>
-<div id="32faf048" class="cell" data-execution_count="5">
+<div id="4d27bcbe" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Forma correta: n linhas e 2 colunas</span></span>
 <span id="cb2-2"><a></a>A <span class="op">=</span> np.column_stack((np.ones(n), x))</span>
 <span id="cb2-3"><a></a><span class="bu">print</span>(A) <span class="co"># Mostra as 3 primeiras linhas</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -384,7 +384,7 @@ e_n
 <section class="slide level2">
 
 <p>Estimação de parâmetros por mínimos quadrados:</p>
-<div id="c5116d75" class="cell" data-execution_count="6">
+<div id="7e0b5674" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Estimativa via Equação Normal: theta = (A'A)^-1 A'y</span></span>
 <span id="cb4-2"><a></a>theta <span class="op">=</span> np.linalg.inv(A.T <span class="op">@</span> A) <span class="op">@</span> A.T <span class="op">@</span> y</span>
 <span id="cb4-3"><a></a></span>
@@ -396,7 +396,7 @@ Inclinação (theta1): 0.0516</code></pre>
 </div>
 </div>
 <p>O grafico comparativo:</p>
-<div id="a539f2af" class="cell" data-execution_count="7">
+<div id="70fb0379" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -702,7 +702,7 @@ Inclinação (theta1): 0.0516</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/raphateixeira\.github\.io\/IdentificacaoControle\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Identificação de Sistemas",
-    "section": "",
-    "text": "Identificação de Sistemas: Notas de ensino e pesquisa.\n\n01 - Ajuste de Reta"
-  },
-  {
     "objectID": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
     "href": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
     "title": "Ajuste de Reta",
@@ -61,5 +54,12 @@
     "title": "Ajuste de Reta",
     "section": "",
     "text": "Prof. Dr. Raphael Teixeira\nUniversidade Federal do Pará"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Identificação de Sistemas",
+    "section": "",
+    "text": "Identificação de Sistemas: Notas de ensino e pesquisa.\n\n01 - Ajuste de Reta"
   }
 ]
