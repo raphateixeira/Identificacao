@@ -9,4 +9,4 @@ format: html
 
 Identificação de Sistemas: Notas de ensino e pesquisa.
 
-* [01 - Ajuste de Reta](Identificacao/Ident01AjusteReta.html)
+* [01 - Ajuste de reta por mínimos quadrados](Identificacao/Ident01AjusteReta.html)
