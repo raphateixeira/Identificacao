@@ -11,7 +11,7 @@
     "href": "Identificacao/Ident01AjusteReta.html#modelo---sistema-de-equações",
     "title": "Ajuste de Reta",
     "section": "Modelo - Sistema de equações",
-    "text": "Modelo - Sistema de equações\nUma notação geral e simples para o modelo de reta é:\n\\[y =  \\theta_1 x + \\theta_0 + e\\]\nOnde se convencionou \\(y = V\\) (variável dependente) e \\(x = T\\) (variável independente).\nAplicando os dados ao modelo, resulta no sistema de equações:\n\\[\\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1 \\\\\n\\vdots & \\vdots \\\\\nx_n & 1\n\\end{bmatrix}\n\\begin{bmatrix}\n\\theta_0 \\\\\n\\theta_1\n\\end{bmatrix} +\n\\begin{bmatrix}\ne_1 \\\\\ne_2 \\\\\n\\vdots \\\\\ne_n\n\\end{bmatrix}\\]\nOu seja:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]"
+    "text": "Modelo - Sistema de equações\nUma notação geral e simples para o modelo de reta é:\n\\[y =  \\theta_1 x + \\theta_0 + e\\]\nOnde se convencionou \\(y = V\\) (variável dependente) e \\(x = T\\) (variável independente).\nAplicando os dados ao modelo, resulta no sistema de equações:\n\\[\\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1 \\\\\n\\vdots & \\vdots \\\\\nx_n & 1\n\\end{bmatrix}\n\\begin{bmatrix}\n\\theta_1 \\\\\n\\theta_0\n\\end{bmatrix} +\n\\begin{bmatrix}\ne_1 \\\\\ne_2 \\\\\n\\vdots \\\\\ne_n\n\\end{bmatrix}\\]\nOu seja:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]"
   },
   {
     "objectID": "Identificacao/Ident01AjusteReta.html#forma-vetorial-matricial",
@@ -25,7 +25,7 @@
     "href": "Identificacao/Ident01AjusteReta.html#estimar-parâmetros-que-minimizam-o-erro",
     "title": "Ajuste de Reta",
     "section": "Estimar parâmetros que minimizam o erro",
-    "text": "Estimar parâmetros que minimizam o erro\nA partir de \\(\\mathbb{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\), o erro pode ser expresso como: \\[\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\]\nO erro passa a ser função dos parâmetros \\(\\boldsymbol{\\theta}\\), já que \\(\\mathbf{y}\\) e \\(\\mathbf{A}\\) são conhecidos a partir dos dados medidos.\nCada escolha de \\(\\boldsymbol{\\theta}\\) gera um vetor de erros diferente.\nA questão é: qual o melhor valor para \\(\\boldsymbol{\\theta}\\)?"
+    "text": "Estimar parâmetros que minimizam o erro\nA partir de \\(\\mathbb{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\), o erro pode ser expresso como: \\[\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\]\nO erro passa a ser função dos parâmetros \\(\\boldsymbol{\\theta}\\), já que \\(\\mathbf{y}\\) e \\(\\mathbf{A}\\) são conhecidos a partir dos dados medidos.\nCada escolha de \\(\\boldsymbol{\\theta}\\) gera um vetor de erros diferente.\nA questão é: qual o melhor valor para \\(\\boldsymbol{\\theta}\\)?\nIsto pode ser formalizado como um problema de otimização:\n\\[\\min_{\\boldsymbol{\\theta}} J(\\boldsymbol{\\theta})\\]\nSendo \\(J(\\boldsymbol{\\theta})\\) mede a agregação dos erros individuais em um único valor a ser minimizado."
   },
   {
     "objectID": "Identificacao/Ident01AjusteReta.html#observação-dos-erros-resíduos",

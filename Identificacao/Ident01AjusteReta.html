@@ -214,7 +214,7 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 <ul>
 <li><strong>Calibração:</strong> - Sensor de temperatura: <span class="math inline">\(n\)</span> amostras e gráfico de dispersão:</li>
 </ul>
-<div id="38fe2e66" class="cell" data-execution_count="1">
+<div id="952b1b57" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -246,8 +246,8 @@ x_2 &amp; 1 \\
 x_n &amp; 1
 \end{bmatrix}
 \begin{bmatrix}
-\theta_0 \\
-\theta_1
+\theta_1 \\
+\theta_0
 \end{bmatrix} +
 \begin{bmatrix}
 e_1 \\
@@ -283,11 +283,14 @@ x_n &amp; 1
 <p>O erro passa a ser função dos parâmetros <span class="math inline">\(\boldsymbol{\theta}\)</span>, já que <span class="math inline">\(\mathbf{y}\)</span> e <span class="math inline">\(\mathbf{A}\)</span> são conhecidos a partir dos dados medidos.</p>
 <p>Cada escolha de <span class="math inline">\(\boldsymbol{\theta}\)</span> gera um vetor de erros diferente.</p>
 <p><em>A questão é: qual o melhor valor para <span class="math inline">\(\boldsymbol{\theta}\)</span>?</em></p>
+<p>Isto pode ser formalizado como um problema de otimização:</p>
+<p><span class="math display">\[\min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})\]</span></p>
+<p>Sendo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> mede a agregação dos erros individuais em um único valor a ser minimizado.</p>
 </section>
 <section id="observação-dos-erros-resíduos" class="slide level2">
 <h2>Observação dos Erros (Resíduos)</h2>
 <p>Erros são a distância vertical entre os pontos medidos e a reta do modelo.</p>
-<div id="22eddf7c" class="cell" data-execution_count="2">
+<div id="a1079c19" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -314,7 +317,7 @@ x_n &amp; 1
 <h3 id="função-de-custo-1">Função de Custo</h3>
 <p>Para cada escolha de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span>, calcula-se o valor da função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
 <p>Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:</p>
-<div id="6c1a19d3" class="cell" data-execution_count="3">
+<div id="dad2e58a" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -336,7 +339,7 @@ x_n &amp; 1
 <section id="solução-python-dos-mínimos-quadrados" class="slide level2">
 <h2>Solução Python dos Mínimos Quadrados</h2>
 <p>Em python os dados podem ser gerados como:</p>
-<div id="4ced2793" class="cell" data-execution_count="4">
+<div id="1b119e2d" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Dados Gerados:</span></span>
@@ -349,7 +352,7 @@ x_n &amp; 1
 <section class="slide level2">
 
 <p>A matriz de regressores <span class="math inline">\(\mathbf{A}\)</span> é construída como:</p>
-<div id="51033bcc" class="cell" data-execution_count="5">
+<div id="d4fb2fa0" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Forma correta: n linhas e 2 colunas</span></span>
 <span id="cb2-2"><a></a>A <span class="op">=</span> np.column_stack((np.ones(n), x))</span>
 <span id="cb2-3"><a></a><span class="bu">print</span>(A) <span class="co"># Mostra as 3 primeiras linhas</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -372,7 +375,7 @@ x_n &amp; 1
 <section class="slide level2">
 
 <p>Estimação de parâmetros por mínimos quadrados:</p>
-<div id="8eddb56d" class="cell" data-execution_count="6">
+<div id="fa220b6b" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Estimativa via Equação Normal: theta = (A'A)^-1 A'y</span></span>
 <span id="cb4-2"><a></a>theta <span class="op">=</span> np.linalg.inv(A.T <span class="op">@</span> A) <span class="op">@</span> A.T <span class="op">@</span> y</span>
 <span id="cb4-3"><a></a></span>
@@ -384,7 +387,7 @@ Inclinação (theta1): 0.0516</code></pre>
 </div>
 </div>
 <p>O grafico comparativo:</p>
-<div id="21c90294" class="cell" data-execution_count="7">
+<div id="5d52f107" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
