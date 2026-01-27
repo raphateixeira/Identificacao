@@ -214,7 +214,7 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 <ul>
 <li><strong>Calibração:</strong> - Sensor de temperatura: <span class="math inline">\(n\)</span> amostras e gráfico de dispersão:</li>
 </ul>
-<div id="aecfd885" class="cell" data-execution_count="1">
+<div id="36059db0" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -285,12 +285,13 @@ x_n &amp; 1
 <p><em>A questão é: qual o melhor valor para <span class="math inline">\(\boldsymbol{\theta}\)</span>?</em></p>
 <p>Isto pode ser formalizado como um problema de otimização:</p>
 <p><span class="math display">\[\min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})\]</span></p>
-<p>Sendo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> mede a agregação dos erros individuais em um único valor a ser minimizado.</p>
+<p>Leia-se: “minimizar a função de custo <span class="math inline">\(J\)</span> em relação aos parâmetros <span class="math inline">\(\boldsymbol{\theta}\)</span>”.</p>
+<p><span class="math inline">\(J(\boldsymbol{\theta})\)</span> é uma função que mede a agregação dos erros individuais em um único valor a ser minimizado.</p>
 </section>
 <section id="observação-dos-erros-resíduos" class="slide level2">
 <h2>Observação dos Erros (Resíduos)</h2>
 <p>Erros são a distância vertical entre os pontos medidos e a reta do modelo.</p>
-<div id="2fe985fe" class="cell" data-execution_count="2">
+<div id="f15bff52" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -305,19 +306,18 @@ x_n &amp; 1
 <section class="slide level2">
 
 <h3 id="função-de-custo">Função de Custo</h3>
-<p>É necessário definir uma métrica para quantificar o erro total do modelo. Isto é feito por uma função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> que agrega os erros individuais <span class="math inline">\(e_i\)</span>.</p>
-<p><span class="math display">\[J(\boldsymbol{\theta}) = \text{agregação dos } e_i\]</span></p>
-<p>Uma soma de valores <em>não seria adequada</em>, pois erros positivos e negativos poderiam se cancelar.</p>
-<p>Uma abordagem comum é utilizar a soma dos quadrados dos erros: <span class="math inline">\(J\)</span> como a soma dos quadrados dos erros:</p>
-<p><span class="math display">\[J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2\]</span></p>
-<p>Esta função <span class="math inline">\(J\)</span> é chamada de função de custo ou função objetivo.</p>
+<p>É necessário definir uma forma para <span class="math inline">\(J(\boldsymbol{\theta})\)</span> que agregue os erros individuais <span class="math inline">\(e_i\)</span> em um único valor: Uma soma de valores</p>
+<p><span class="math display">\[J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i\]</span> <em>não seria adequada</em>, pois erros positivos e negativos poderiam se cancelar. Uma abordagem comum é utilizar a soma dos quadrados dos erros:</p>
+<p><span class="math display">\[J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - \hat{y}_i]^2\]</span></p>
+<p>Que pode ser reescrita para o modelo escolhido (reta) como:</p>
+<p><span class="math display">\[J(\boldsymbol{\theta}) = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2\]</span></p>
 </section>
 <section class="slide level2">
 
 <h3 id="função-de-custo-1">Função de Custo</h3>
 <p>Para cada escolha de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span>, calcula-se o valor da função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
 <p>Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:</p>
-<div id="c4ff46ca" class="cell" data-execution_count="3">
+<div id="acace53a" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -339,7 +339,7 @@ x_n &amp; 1
 <section id="solução-python-dos-mínimos-quadrados" class="slide level2">
 <h2>Solução Python dos Mínimos Quadrados</h2>
 <p>Em python os dados podem ser gerados como:</p>
-<div id="790a4bf0" class="cell" data-execution_count="4">
+<div id="38c3a994" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Dados Gerados:</span></span>
@@ -352,7 +352,7 @@ x_n &amp; 1
 <section class="slide level2">
 
 <p>A matriz de regressores <span class="math inline">\(\mathbf{A}\)</span> é construída como:</p>
-<div id="4f735342" class="cell" data-execution_count="5">
+<div id="97b4d0ec" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Matriz de regressão: n linhas e 2 colunas</span></span>
 <span id="cb2-2"><a></a>A <span class="op">=</span> np.column_stack((np.ones(n), x))</span>
 <span id="cb2-3"><a></a><span class="bu">print</span>(A) <span class="co"># Mostra as 3 primeiras linhas</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -372,7 +372,7 @@ x_n &amp; 1
 </div>
 </div>
 <p>Estimação de parâmetros por mínimos quadrados:</p>
-<div id="c7e3c035" class="cell" data-execution_count="6">
+<div id="2ceb2fdf" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Estimativa via Equação Normal: theta = (A'A)^-1 A'y</span></span>
 <span id="cb4-2"><a></a>theta <span class="op">=</span> np.linalg.inv(A.T <span class="op">@</span> A) <span class="op">@</span> A.T <span class="op">@</span> y</span>
 <span id="cb4-3"><a></a></span>
@@ -387,7 +387,7 @@ Inclinação (theta1): 0.0516</code></pre>
 <section class="slide level2">
 
 <p>O grafico comparativo:</p>
-<div id="b8b66660" class="cell" data-execution_count="7">
+<div id="34024af8" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
