@@ -152,7 +152,9 @@ Isto pode ser formalizado como um problema de otimização:
 
 $$\min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})$$
 
-Sendo $J(\boldsymbol{\theta})$ mede a agregação dos  erros individuais em um único valor a ser minimizado.
+Leia-se: "minimizar a função de custo $J$ em relação aos parâmetros $\boldsymbol{\theta}$".
+
+$J(\boldsymbol{\theta})$  é uma função que mede a agregação dos  erros individuais em um único valor a ser minimizado.
 
 ---
  
@@ -199,17 +201,16 @@ $$e_i = y_i - \hat{y}_i$$
 
 ### Função de Custo
 
-É necessário definir uma métrica para quantificar o erro total do modelo. Isto é feito por uma função de custo $J(\boldsymbol{\theta})$ que agrega os erros individuais $e_i$.
+É necessário definir uma forma para $J(\boldsymbol{\theta})$ que agregue os erros individuais $e_i$ em um único valor: Uma soma de valores 
 
-$$J(\boldsymbol{\theta}) = \text{agregação dos } e_i$$
+$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i$$
+_não seria adequada_, pois erros positivos e negativos poderiam se cancelar. Uma abordagem comum é utilizar a soma dos quadrados dos erros:
 
-Uma soma de valores _não seria adequada_, pois erros positivos e negativos poderiam se cancelar.
+$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - \hat{y}_i]^2$$
 
-Uma abordagem comum é utilizar a soma dos quadrados dos erros: $J$ como a soma dos quadrados dos erros:
+Que pode ser reescrita para o modelo escolhido (reta) como:
 
-$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2$$
-
-Esta função $J$ é chamada de função de custo ou função objetivo.
+$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2$$
 
 ---
 ### Função de Custo
