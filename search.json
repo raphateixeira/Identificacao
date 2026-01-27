@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Identificação de Sistemas",
+    "section": "",
+    "text": "Identificação de Sistemas: Notas de ensino e pesquisa.\n\n01 - Ajuste de Reta"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
+    "href": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
+    "title": "Ajuste de Reta",
+    "section": "Introdução ao Ajuste de Curvas",
+    "text": "Introdução ao Ajuste de Curvas\nTécnica estatística para modelar a relação entre variável medida e de saída:\n\nCalibração: - Sensor de temperatura: \\(n\\) amostras e gráfico de dispersão:\n\n\n\n\n\n\n\n\n\n\nPadrão sugere que uma reta (modelo) pode ser adequada para a relação:\n\\[V = \\theta_0 + \\theta_1 T + e\\]\n\\(V\\): Tensão medida; \\(T\\): Temperatura; \\(\\theta_i\\): Parâmetros do modelo; \\(e\\): Erro aleatório."
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#modelo---sistema-de-equações",
+    "href": "Identificacao/Ident01AjusteReta.html#modelo---sistema-de-equações",
+    "title": "Ajuste de Reta",
+    "section": "Modelo - Sistema de equações",
+    "text": "Modelo - Sistema de equações\nSerá utilizado o modelo de regressão linear simples para ajustar uma reta aos dados observados. A equação do modelo é dada por:\n\\[y = \\theta_0 + \\theta_1 x + e\\]\nOnde se convencionou \\(y = V\\) (variável dependente) e \\(x = T\\) (variável independente).\nAplicando os dados ao modelo, resulta no sistema de equações:\n\\[\\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n\n\\end{bmatrix} =\n\\begin{bmatrix}\n1 & x_1 \\\\\n1 & x_2 \\\\\n\\vdots & \\vdots \\\\\n1 & x_n\n\\end{bmatrix}\n\\begin{bmatrix}\n\\theta_0 \\\\\n\\theta_1\n\\end{bmatrix} +\n\\begin{bmatrix}\ne_1 \\\\\ne_2 \\\\\n\\vdots \\\\\ne_n\n\\end{bmatrix}\\]\nOu seja:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#modelo---forma-vetorial-matricial",
+    "href": "Identificacao/Ident01AjusteReta.html#modelo---forma-vetorial-matricial",
+    "title": "Ajuste de Reta",
+    "section": "Modelo - Forma Vetorial-matricial",
+    "text": "Modelo - Forma Vetorial-matricial\nNesta notação vetorial-matricial, o modelo pode ser interpretado da seguinte forma:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]\n\n\\(\\mathbf{y} \\in \\mathbb{R}^{n \\times 1}\\): vetor de saídas observadas: \\(\\mathbf{y} = [y_1, y_2, \\dots, y_n]^T\\) (tensões medidas).\n\\(\\mathbf{A} \\in \\mathbb{R}^{n \\times 2}\\): matriz de regressores, cada coluna é um termo do modelo.\n\n\\[\\mathbf{A} = \\begin{bmatrix}\n1 & x_1 \\\\\n1 & x_2 \\\\\n\\vdots & \\vdots \\\\\n1 & x_n\n\\end{bmatrix}\\]\n\n\\(\\boldsymbol{\\theta} \\in \\mathbb{R}^{2 \\times 1}\\): vetor de parâmetros \\(\\boldsymbol{\\theta} = [\\theta_0, \\theta_1]^T\\) a serem estimados.\n\\(\\mathbf{e} \\in \\mathbb{R}^{n \\times 1}\\): vetor de erros aleatórios. \\(\\mathbf{e} = [e_1, e_2, \\dots, e_n]^T\\)"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#estimativa-dos-parâmetros---mínimos-quadrados",
+    "href": "Identificacao/Ident01AjusteReta.html#estimativa-dos-parâmetros---mínimos-quadrados",
+    "title": "Ajuste de Reta",
+    "section": "Estimativa dos Parâmetros - Mínimos Quadrados",
+    "text": "Estimativa dos Parâmetros - Mínimos Quadrados\nA partir de \\(\\mathbb{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\), o erro pode ser expresso como: \\[\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\].\nNote que o erro passa a ser função dos parâmetros \\(\\boldsymbol{\\theta}\\), já que \\(\\mathbf{y}\\) e \\(\\mathbf{A}\\) são conhecidos a partir dos dados medidos.\nCada escolha de \\(\\boldsymbol{\\theta}\\) gera um vetor de erros diferente. A questão é: qual o melhor valor para \\(\\boldsymbol{\\theta}\\)?\nA técnica dos mínimos quadrados busca encontrar os parâmetros que minimizam a soma dos quadrados dos erros, ou seja, o valor de \\(\\boldsymbol{\\theta}\\) que torna o vetor de erros o menor possível em termos de norma quadrática."
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#critério-de-mínimos-quadrados",
+    "href": "Identificacao/Ident01AjusteReta.html#critério-de-mínimos-quadrados",
+    "title": "Ajuste de Reta",
+    "section": "Critério de Mínimos Quadrados",
+    "text": "Critério de Mínimos Quadrados\nErros são a distância vertical entre os pontos medidos e a reta do modelo.\n\n\n\n\n\n\n\n\n\nO erro residual para cada amostra \\(i\\) é a diferença entre o valor medido e o predito pelo modelo:\n\\[e_i = y_i - \\hat{y}_i\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#abordagem-matricial",
+    "href": "Identificacao/Ident01AjusteReta.html#abordagem-matricial",
+    "title": "Ajuste de Reta",
+    "section": "Abordagem matricial",
+    "text": "Abordagem matricial\nComo o erro é dado por \\(\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\), pode-se impor que o erro seja zero:\n\\[\\mathbf{A} \\boldsymbol{\\theta} = \\mathbf{y} \\]\nSe a matriz \\(\\mathbf{A}\\) for quadrada e inversível, a solução direta \\(\\boldsymbol{\\theta} = \\mathbf{A}^{-1} \\mathbf{y}\\). Mas nos casos práticos \\(\\mathbf{A}\\) não é quadrada. Neste caso pode-se aplicar \\(\\mathbf{A}^T\\) em ambos os lados da equação: \\[\\mathbf{A}^T \\mathbf{A} \\boldsymbol{\\theta} = \\mathbf{A}^T \\mathbf{y} \\]\nSe o produto \\(\\mathbf{A}^T \\mathbf{A}\\) for inversível então aplica-se esta inversa a ambos os lados:\n\\[(\\mathbf{A}^T \\mathbf{A})^{-1}(\\mathbf{A}^T \\mathbf{A})\\boldsymbol{\\theta} = (\\mathbf{A}^T \\mathbf{A})^{-1} \\mathbf{A}^T \\mathbf{y}\\]\nO que resulta em: \\[\\boldsymbol{\\theta} = (\\mathbf{A}^T \\mathbf{A})^{-1} \\mathbf{A}^T \\mathbf{y}\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#solução-python-dos-mínimos-quadrados",
+    "href": "Identificacao/Ident01AjusteReta.html#solução-python-dos-mínimos-quadrados",
+    "title": "Ajuste de Reta",
+    "section": "Solução Python dos Mínimos Quadrados",
+    "text": "Solução Python dos Mínimos Quadrados\nEm python os dados podem ser gerados como:\n\nimport numpy as np\n\n# Dados Gerados:\nnp.random.seed(12)\nx = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70])\ny = 0.05 * x + 0.5 + np.random.normal(0, 0.1, len(x))\nn = len(x)"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#section",
+    "href": "Identificacao/Ident01AjusteReta.html#section",
+    "title": "Ajuste de Reta",
+    "section": "",
+    "text": "Prof. Dr. Raphael Teixeira\nUniversidade Federal do Pará"
+  }
+]
