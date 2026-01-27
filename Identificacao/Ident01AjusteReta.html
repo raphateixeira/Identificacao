@@ -214,7 +214,7 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 <ul>
 <li><strong>Calibração:</strong> - Sensor de temperatura: <span class="math inline">\(n\)</span> amostras e gráfico de dispersão:</li>
 </ul>
-<div id="ec4bd3c7" class="cell" data-execution_count="1">
+<div id="38fe2e66" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -224,13 +224,13 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 </div>
 </div>
 <p>Padrão sugere que uma reta (modelo) pode ser adequada para a relação:</p>
-<p><span class="math display">\[V = \theta_0 + \theta_1 T + e\]</span></p>
+<p><span class="math display">\[V = \theta_1 T + \theta_0 + e\]</span></p>
 <p><span class="math inline">\(V\)</span>: Tensão medida; <span class="math inline">\(T\)</span>: Temperatura; <span class="math inline">\(\theta_i\)</span>: Parâmetros do modelo; <span class="math inline">\(e\)</span>: Erro aleatório.</p>
 </section>
 <section id="modelo---sistema-de-equações" class="slide level2">
 <h2>Modelo - Sistema de equações</h2>
-<p>Será utilizado o modelo de regressão linear simples para ajustar uma reta aos dados observados. A equação do modelo é dada por:</p>
-<p><span class="math display">\[y = \theta_0 + \theta_1 x + e\]</span></p>
+<p>Uma notação geral e simples para o modelo de reta é:</p>
+<p><span class="math display">\[y =  \theta_1 x + \theta_0 + e\]</span></p>
 <p>Onde se convencionou <span class="math inline">\(y = V\)</span> (variável dependente) e <span class="math inline">\(x = T\)</span> (variável independente).</p>
 <p>Aplicando os dados ao modelo, resulta no sistema de equações:</p>
 <p><span class="math display">\[\begin{bmatrix}
@@ -240,10 +240,10 @@ y_2 \\
 y_n
 \end{bmatrix} =
 \begin{bmatrix}
-1 &amp; x_1 \\
-1 &amp; x_2 \\
+x_1 &amp; 1 \\
+x_2 &amp; 1 \\
 \vdots &amp; \vdots \\
-1 &amp; x_n
+x_n &amp; 1
 \end{bmatrix}
 \begin{bmatrix}
 \theta_0 \\
@@ -258,75 +258,63 @@ e_n
 <p>Ou seja:</p>
 <p><span class="math display">\[\mathbf{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}\]</span></p>
 </section>
-<section id="modelo---forma-vetorial-matricial" class="slide level2">
-<h2>Modelo - Forma Vetorial-matricial</h2>
+<section id="forma-vetorial-matricial" class="slide level2">
+<h2>Forma Vetorial-matricial</h2>
 <p>Nesta notação vetorial-matricial, o modelo pode ser interpretado da seguinte forma:</p>
 <p><span class="math display">\[\mathbf{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}\]</span></p>
 <ul>
-<li><p><span class="math inline">\(\mathbf{y} \in \mathbb{R}^{n \times 1}\)</span>: vetor de saídas observadas: <span class="math inline">\(\mathbf{y} = [y_1, y_2, \dots, y_n]^T\)</span> (tensões medidas).</p></li>
+<li><p><span class="math inline">\(\mathbf{y} \in \mathbb{R}^{n \times 1}\)</span>: vetor de saídas observadas: <span class="math inline">\(\mathbf{y} = [y_1, y_2, \dots, y_n]^T\)</span>.</p></li>
 <li><p><span class="math inline">\(\mathbf{A} \in \mathbb{R}^{n \times 2}\)</span>: matriz de regressores, cada coluna é um termo do modelo.</p></li>
 </ul>
 <p><span class="math display">\[\mathbf{A} = \begin{bmatrix}
-1 &amp; x_1 \\
-1 &amp; x_2 \\
+x_1 &amp; 1 \\
+x_2 &amp; 1 \\
 \vdots &amp; \vdots \\
-1 &amp; x_n
+x_n &amp; 1
 \end{bmatrix}\]</span></p>
 <ul>
-<li><p><span class="math inline">\(\boldsymbol{\theta} \in \mathbb{R}^{2 \times 1}\)</span>: vetor de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span> a serem estimados.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{\theta} \in \mathbb{R}^{2 \times 1}\)</span>: vetor de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_1, \theta_0]^T\)</span> a serem estimados.</p></li>
 <li><p><span class="math inline">\(\mathbf{e} \in \mathbb{R}^{n \times 1}\)</span>: vetor de erros aleatórios. <span class="math inline">\(\mathbf{e} = [e_1, e_2, \dots, e_n]^T\)</span></p></li>
 </ul>
 </section>
-<section id="estimativa-dos-parâmetros---mínimos-quadrados" class="slide level2">
-<h2>Estimativa dos Parâmetros - Mínimos Quadrados</h2>
-<p>A partir de <span class="math inline">\(\mathbb{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}\)</span>, o erro pode ser expresso como: <span class="math display">\[\mathbf{e} = \mathbf{y} - \mathbf{A} \boldsymbol{\theta}\]</span>.</p>
-<p>Note que o erro passa a ser função dos parâmetros <span class="math inline">\(\boldsymbol{\theta}\)</span>, já que <span class="math inline">\(\mathbf{y}\)</span> e <span class="math inline">\(\mathbf{A}\)</span> são conhecidos a partir dos dados medidos.</p>
-<p>Cada escolha de <span class="math inline">\(\boldsymbol{\theta}\)</span> gera um vetor de erros diferente. A questão é: qual o melhor valor para <span class="math inline">\(\boldsymbol{\theta}\)</span>?</p>
-<p>A técnica dos mínimos quadrados busca encontrar os parâmetros que minimizam a soma dos quadrados dos erros, ou seja, o valor de <span class="math inline">\(\boldsymbol{\theta}\)</span> que torna o vetor de erros o menor possível em termos de norma quadrática.</p>
+<section id="estimar-parâmetros-que-minimizam-o-erro" class="slide level2">
+<h2>Estimar parâmetros que minimizam o erro</h2>
+<p>A partir de <span class="math inline">\(\mathbb{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}\)</span>, o erro pode ser expresso como: <span class="math display">\[\mathbf{e} = \mathbf{y} - \mathbf{A} \boldsymbol{\theta}\]</span></p>
+<p>O erro passa a ser função dos parâmetros <span class="math inline">\(\boldsymbol{\theta}\)</span>, já que <span class="math inline">\(\mathbf{y}\)</span> e <span class="math inline">\(\mathbf{A}\)</span> são conhecidos a partir dos dados medidos.</p>
+<p>Cada escolha de <span class="math inline">\(\boldsymbol{\theta}\)</span> gera um vetor de erros diferente.</p>
+<p><em>A questão é: qual o melhor valor para <span class="math inline">\(\boldsymbol{\theta}\)</span>?</em></p>
 </section>
-<section id="critério-de-mínimos-quadrados" class="slide level2">
-<h2>Critério de Mínimos Quadrados</h2>
+<section id="observação-dos-erros-resíduos" class="slide level2">
+<h2>Observação dos Erros (Resíduos)</h2>
 <p>Erros são a distância vertical entre os pontos medidos e a reta do modelo.</p>
-<div id="888287c8" class="cell" data-execution_count="2">
+<div id="22eddf7c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-3-output-1.png" width="592" height="431"></p>
+<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-3-output-1.png" width="666" height="505"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>O erro residual para cada amostra <span class="math inline">\(i\)</span> é a diferença entre o valor medido e o predito pelo modelo:</p>
+<p>O erro residual para cada amostra <span class="math inline">\(i\)</span> é a diferença entre o valor medido e o predito <span class="math inline">\(\hat{y}_i\)</span> pelo modelo:</p>
 <p><span class="math display">\[e_i = y_i - \hat{y}_i\]</span></p>
 </section>
 <section class="slide level2">
 
 <h3 id="função-de-custo">Função de Custo</h3>
-<p>É necessário definir uma métrica para quantificar o erro total do modelo.</p>
-<p>Uma soma de valores não seria adequada, pois erros positivos e negativos poderiam se cancelar.</p>
-<p>Uma abordagem comum é utilizar a soma dos quadrados dos resíduos (erros): <span class="math inline">\(J\)</span> como a soma dos quadrados dos erros:</p>
-<p>Esta função <span class="math inline">\(J\)</span> é chamada de função de custo ou função objetivo.</p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Objetivo</strong></p>
-</div>
-<div class="callout-content">
-<p>Determinar os parâmetros <span class="math inline">\(\theta_0\)</span> e <span class="math inline">\(\theta_1\)</span> que minimizam a função <span class="math inline">\(J\)</span>.</p>
+<p>É necessário definir uma métrica para quantificar o erro total do modelo. Isto é feito por uma função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span> que agrega os erros individuais <span class="math inline">\(e_i\)</span>.</p>
+<p><span class="math display">\[J(\boldsymbol{\theta}) = \text{agregação dos } e_i\]</span></p>
+<p>Uma soma de valores <em>não seria adequada</em>, pois erros positivos e negativos poderiam se cancelar.</p>
+<p>Uma abordagem comum é utilizar a soma dos quadrados dos erros: <span class="math inline">\(J\)</span> como a soma dos quadrados dos erros:</p>
 <p><span class="math display">\[J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2\]</span></p>
-</div>
-</div>
-</div>
+<p>Esta função <span class="math inline">\(J\)</span> é chamada de função de custo ou função objetivo.</p>
 </section>
 <section class="slide level2">
 
 <h3 id="função-de-custo-1">Função de Custo</h3>
 <p>Para cada escolha de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span>, calcula-se o valor da função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
 <p>Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:</p>
-<div id="2b32bacd" class="cell" data-execution_count="3">
+<div id="6c1a19d3" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -348,7 +336,7 @@ e_n
 <section id="solução-python-dos-mínimos-quadrados" class="slide level2">
 <h2>Solução Python dos Mínimos Quadrados</h2>
 <p>Em python os dados podem ser gerados como:</p>
-<div id="fb201993" class="cell" data-execution_count="4">
+<div id="4ced2793" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Dados Gerados:</span></span>
@@ -361,7 +349,7 @@ e_n
 <section class="slide level2">
 
 <p>A matriz de regressores <span class="math inline">\(\mathbf{A}\)</span> é construída como:</p>
-<div id="4d27bcbe" class="cell" data-execution_count="5">
+<div id="51033bcc" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Forma correta: n linhas e 2 colunas</span></span>
 <span id="cb2-2"><a></a>A <span class="op">=</span> np.column_stack((np.ones(n), x))</span>
 <span id="cb2-3"><a></a><span class="bu">print</span>(A) <span class="co"># Mostra as 3 primeiras linhas</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -384,7 +372,7 @@ e_n
 <section class="slide level2">
 
 <p>Estimação de parâmetros por mínimos quadrados:</p>
-<div id="7e0b5674" class="cell" data-execution_count="6">
+<div id="8eddb56d" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Estimativa via Equação Normal: theta = (A'A)^-1 A'y</span></span>
 <span id="cb4-2"><a></a>theta <span class="op">=</span> np.linalg.inv(A.T <span class="op">@</span> A) <span class="op">@</span> A.T <span class="op">@</span> y</span>
 <span id="cb4-3"><a></a></span>
@@ -396,7 +384,7 @@ Inclinação (theta1): 0.0516</code></pre>
 </div>
 </div>
 <p>O grafico comparativo:</p>
-<div id="70fb0379" class="cell" data-execution_count="7">
+<div id="21c90294" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
