@@ -298,12 +298,10 @@ A matriz de regressores $\mathbf{A}$ é construída como:
 
 ```{python}
 #| echo: true
-# Forma correta: n linhas e 2 colunas
+# Matriz de regressão: n linhas e 2 colunas
 A = np.column_stack((np.ones(n), x))
 print(A) # Mostra as 3 primeiras linhas
 ```
-
----
 
 Estimação de parâmetros por mínimos quadrados:
 ```{python}
@@ -315,12 +313,14 @@ print(f"Intercepto (theta0): {theta[0]:.4f}")
 print(f"Inclinação (theta1): {theta[1]:.4f}")
 ```
 
+---
+
 O grafico comparativo:
 ```{python}
 #| echo: false
 import matplotlib.pyplot as plt
 y_pred = A @ theta
-plt.figure(figsize=(7, 5))
+plt.figure(figsize=(8, 6))
 plt.scatter(x, y, color='blue', label='Dados Medidos ($y$)', zorder=2)
 plt.plot(x, y_pred, color='red', label='Reta Ajustada (MMQ)', zorder=1)
 plt.xlabel('Variável de Entrada ($x$)')
