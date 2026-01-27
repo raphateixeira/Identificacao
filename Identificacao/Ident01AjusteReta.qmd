@@ -97,8 +97,8 @@ x_2 & 1 \\
 x_n & 1
 \end{bmatrix}
 \begin{bmatrix}
-\theta_0 \\
-\theta_1
+\theta_1 \\
+\theta_0
 \end{bmatrix} +
 \begin{bmatrix}
 e_1 \\
@@ -147,6 +147,12 @@ O erro passa a ser função dos parâmetros $\boldsymbol{\theta}$, já que $\mat
 Cada escolha de $\boldsymbol{\theta}$ gera um vetor de erros diferente. 
 
 _A questão é: qual o melhor valor para $\boldsymbol{\theta}$?_
+
+Isto pode ser formalizado como um problema de otimização:
+
+$$\min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})$$
+
+Sendo $J(\boldsymbol{\theta})$ mede a agregação dos  erros individuais em um único valor a ser minimizado.
 
 ---
  
