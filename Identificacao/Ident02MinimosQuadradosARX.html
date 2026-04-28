@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Prof.&nbsp;Dr.&nbsp;Raphael Teixeira">
-  <title>Identificação de Sistemas Dinâmicos – Ajuste de Reta</title>
+  <title>Identificação de Sistemas Dinâmicos – Ajuste de Modelo de Sistemas Dinâmicos por Mínimos Quadrados</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -193,7 +193,7 @@
     <div class="slides">
 
 <section class="quarto-title-block center">
-  <h1 class="title">Ajuste de Reta</h1>
+  <h1 class="title">Ajuste de Modelo de Sistemas Dinâmicos por Mínimos Quadrados</h1>
   <p class="subtitle">Identificação de Sistemas</p>
 
 <div class="quarto-title-authors">
@@ -214,11 +214,11 @@ Prof.&nbsp;Dr.&nbsp;Raphael Teixeira
 <ul>
 <li><strong>Calibração:</strong> - Sensor de temperatura: <span class="math inline">\(n\)</span> amostras e gráfico de dispersão:</li>
 </ul>
-<div id="bfebaa1b" class="cell" data-execution_count="1">
+<div id="7e4282fe" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-2-output-1.png" width="1142" height="374"></p>
+<p><img data-src="Ident02MinimosQuadradosARX_files/figure-revealjs/cell-2-output-1.png" width="1142" height="374"></p>
 </figure>
 </div>
 </div>
@@ -291,11 +291,11 @@ x_n &amp; 1
 <section class="slide level2">
 <h2>Observação dos Erros (Resíduos)</h2>
 <p>Erros são a distância vertical entre os pontos medidos e a reta do modelo.</p>
-<div id="96e063d3" class="cell" data-execution_count="2">
+<div id="3ad86194" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-3-output-1.png" width="666" height="505"></p>
+<p><img data-src="Ident02MinimosQuadradosARX_files/figure-revealjs/cell-3-output-1.png" width="666" height="505"></p>
 </figure>
 </div>
 </div>
@@ -317,11 +317,11 @@ x_n &amp; 1
 <h3>Função de Custo</h3>
 <p>Para cada escolha de parâmetros <span class="math inline">\(\boldsymbol{\theta} = [\theta_0, \theta_1]^T\)</span>, calcula-se o valor da função de custo <span class="math inline">\(J(\boldsymbol{\theta})\)</span>.</p>
 <p>Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:</p>
-<div id="a0cead7b" class="cell" data-execution_count="3">
+<div id="e0a68eab" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-4-output-1.png" width="949" height="566"></p>
+<p><img data-src="Ident02MinimosQuadradosARX_files/figure-revealjs/cell-4-output-1.png" width="949" height="566"></p>
 </figure>
 </div>
 </div>
@@ -339,7 +339,7 @@ x_n &amp; 1
 <section class="slide level2">
 <h2>Solução Python dos Mínimos Quadrados</h2>
 <p>Em python os dados podem ser gerados como:</p>
-<div id="4911e407" class="cell" data-execution_count="4">
+<div id="3abc7de4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Dados Gerados:</span></span>
@@ -352,7 +352,7 @@ x_n &amp; 1
 <section class="slide level2">
 
 <p>A matriz de regressores <span class="math inline">\(\mathbf{A}\)</span> é construída como:</p>
-<div id="16636630" class="cell" data-execution_count="5">
+<div id="71e4ff89" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Matriz de regressão: n linhas e 2 colunas</span></span>
 <span id="cb2-2"><a></a>A <span class="op">=</span> np.column_stack((np.ones(n), x))</span>
 <span id="cb2-3"><a></a><span class="bu">print</span>(A) <span class="co"># Mostra as 3 primeiras linhas</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -372,7 +372,7 @@ x_n &amp; 1
 </div>
 </div>
 <p>Estimação de parâmetros por mínimos quadrados:</p>
-<div id="aac855ca" class="cell" data-execution_count="6">
+<div id="554b39ea" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Estimativa via Equação Normal: theta = (A'A)^-1 A'y</span></span>
 <span id="cb4-2"><a></a>theta <span class="op">=</span> np.linalg.inv(A.T <span class="op">@</span> A) <span class="op">@</span> A.T <span class="op">@</span> y</span>
 <span id="cb4-3"><a></a></span>
@@ -387,11 +387,11 @@ Inclinação (theta1): 0.0516</code></pre>
 <section class="slide level2">
 
 <p>O grafico comparativo:</p>
-<div id="0bd173a3" class="cell" data-execution_count="7">
+<div id="d1b13cd0" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Ident01AjusteReta_files/figure-revealjs/cell-8-output-1.png" width="666" height="505"></p>
+<p><img data-src="Ident02MinimosQuadradosARX_files/figure-revealjs/cell-8-output-1.png" width="666" height="505"></p>
 </figure>
 </div>
 </div>
