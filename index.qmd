@@ -9,6 +9,19 @@ format: html
 
 Identificação de Sistemas: Notas de ensino e pesquisa.
 
-* [01 - Ajuste de reta por mínimos quadrados](Identificacao/Ident01AjusteReta.html)
-* [02 - Simulação de sistemas e sinais PRBS](Identificacao/Ident02SimulacaoPRBS.html)
-* [03 - Identificação de modelos ARX por mínimos quadrados](Identificacao/Ident03ARXMinimosQuadrados.html)
+```{=html}
+<div class="categoria-grid">
+<a class="categoria-card" href="Identificacao/Ident01AjusteReta.html">
+  <h3>Nota 1</h3>
+  <p>Ajuste de reta por mínimos quadrados</p>
+</a>
+<a class="categoria-card" href="Identificacao/Ident02SimulacaoPRBS.html">
+  <h3>Nota 2</h3>
+  <p>Simulação de sistemas e sinais PRBS</p>
+</a>
+<a class="categoria-card" href="Identificacao/Ident03ARXMinimosQuadrados.html">
+  <h3>Nota 3</h3>
+  <p>Identificação de modelos ARX por mínimos quadrados</p>
+</a>
+</div>
+```

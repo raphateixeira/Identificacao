@@ -1,34 +1,35 @@
 /*-- scss:defaults --*/
 
-// Paleta de Cores UFPA
-$blue-ufpa: #002C6F;
-$red-ufpa: #E4002B;
-$yellow-ufpa: #FFD700;
-$black-ufpa: #231F20;
-$white: #FFFFFF;
+// --- Paleta (uniformizada com TikZ/TemplateNotas) ---
+$cor-primaria:    #1F3A5F;
+$cor-secundaria:  #B23A48;
+$cor-acento:      #E8B23A;
+$cor-texto:       #1A1A1A;
+$cor-fundo:       #FFFFFF;
+$white:           #FFFFFF;
 
 // Fontes:
 $main-font-size: 18px;
 $code-font-family: 'Courier New', Courier, monospace;
 
 // Configuração do Tema Bootstrap
-$primary: $blue-ufpa;
-$secondary: $red-ufpa;
-$navbar-dark-bg: $blue-ufpa; 
-$navbar-dark-color: $white; 
-$body-bg: $white; 
+$primary: $cor-primaria;
+$secondary: $cor-secundaria;
+$navbar-dark-bg: $cor-primaria;
+$navbar-dark-color: $white;
+$body-bg: $cor-fundo;
 
 // Cores Específicas para Componentes do Quarto
-$body-color: $black-ufpa; 
-$link-color: $blue-ufpa;
+$body-color: $cor-texto;
+$link-color: $cor-primaria;
 // COMENTADO: QUARTO VAI USAR CORES DO CODE-THEME (MONOKAI)
-// $code-bg: #EAEAEA; 
-// $code-color: $black-ufpa; 
+// $code-bg: #EAEAEA;
+// $code-color: $cor-texto;
 /*-- scss:rules --*/
 
 // --- Customizações Gerais ---
 h1, h2, h3, h4, h5, h6 {
-    color: $black-ufpa !important; 
+    color: $cor-texto !important;
 }
 
 // --- Customização da Apresentação (Reveal.js) ---
@@ -41,37 +42,62 @@ h1, h2, h3, h4, h5, h6 {
 
 // 2. Títulos de slides internos (Cabeçalho #)
 .reveal h1 {
-    font-size: 0.5em !important; 
+    font-size: 0.5em !important;
 }
 
 // --- Customização da Barra Lateral do Site ---
 
 // Estilo para o item ativo na barra lateral
 .sidebar-item.active > a {
-    // Valor fixo em Hex para substituir lighten($blue-ufpa, 50%)
-    background-color: #CCCCE5; 
-    color: $blue-ufpa !important; font-weight: bold;    
+    background-color: lighten($cor-primaria, 50%);
+    color: $cor-primaria !important; font-weight: bold;
 }
 
 // Estilo para os itens da barra lateral ao passar o mouse
 .sidebar-item > a:hover {
-    background-color: lighten($blue-ufpa, 40%); 
-    color: $white !important; 
+    background-color: lighten($cor-primaria, 40%);
+    color: $white !important;
 }
 
 // Estilo para os links na barra lateral
 .sidebar-item > a {
-    color: $black-ufpa !important; 
+    color: $cor-texto !important;
 }
 
 // --- Customização do Rodapé do Site ---
 footer.site-footer {
-    background-color: $blue-ufpa; 
-    color: $white; 
+    background-color: $cor-primaria;
+    color: $white;
 }
 
 // ⬇️ NOVA REGRA: Fonte grande específica para blocos de código
 .fonte-grande-codigo pre code {
     // Aumenta o tamanho da fonte do código (ex: 1.3em para ser bem maior)
-    font-size: 1.6em !important; 
+    font-size: 1.6em !important;
+}
+
+// --- Grid de links (index.qmd) ---
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.categoria-card {
+    display: block;
+    padding: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-decoration: none !important;
+    color: $cor-texto !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+
+    h3 { color: $cor-primaria; margin-bottom: 0.3rem; }
+    p  { margin: 0; color: #666; font-size: 0.9em; }
+
+    &:hover {
+        border-color: $cor-primaria;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
 }
