@@ -1,9 +1,338 @@
 [
   {
+    "objectID": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
+    "href": "Identificacao/Ident01AjusteReta.html#introdução-ao-ajuste-de-curvas",
+    "title": "Ajuste de Reta",
+    "section": "Introdução ao Ajuste de Curvas",
+    "text": "Introdução ao Ajuste de Curvas\nTécnica estatística para modelar a relação entre variável medida e de saída:\n\nCalibração: - Sensor de temperatura: \\(n\\) amostras e gráfico de dispersão:\n\n\n\n\n\n\n\n\n\n\nPadrão sugere que uma reta (modelo) pode ser adequada para a relação:\n\\[V = \\theta_1 T + \\theta_0 + e\\]\n\\(V\\): Tensão medida; \\(T\\): Temperatura; \\(\\theta_i\\): Parâmetros do modelo; \\(e\\): Erro aleatório."
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#modelo---sistema-de-equações",
+    "href": "Identificacao/Ident01AjusteReta.html#modelo---sistema-de-equações",
+    "title": "Ajuste de Reta",
+    "section": "Modelo - Sistema de equações",
+    "text": "Modelo - Sistema de equações\nUma notação geral e simples para o modelo de reta é:\n\\[y =  \\theta_1 x + \\theta_0 + e\\]\nOnde se convencionou \\(y = V\\) (variável dependente) e \\(x = T\\) (variável independente).\nAplicando os dados ao modelo, resulta no sistema de equações:\n\\[\\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n\n\\end{bmatrix} =\n\\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1 \\\\\n\\vdots & \\vdots \\\\\nx_n & 1\n\\end{bmatrix}\n\\begin{bmatrix}\n\\theta_1 \\\\\n\\theta_0\n\\end{bmatrix} +\n\\begin{bmatrix}\ne_1 \\\\\ne_2 \\\\\n\\vdots \\\\\ne_n\n\\end{bmatrix}\\]\nOu seja:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#forma-vetorial-matricial",
+    "href": "Identificacao/Ident01AjusteReta.html#forma-vetorial-matricial",
+    "title": "Ajuste de Reta",
+    "section": "Forma Vetorial-matricial",
+    "text": "Forma Vetorial-matricial\nNesta notação vetorial-matricial, o modelo pode ser interpretado da seguinte forma:\n\\[\\mathbf{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\]\n\n\\(\\mathbf{y} \\in \\mathbb{R}^{n \\times 1}\\): vetor de saídas observadas: \\(\\mathbf{y} = [y_1, y_2, \\dots, y_n]^T\\).\n\\(\\mathbf{A} \\in \\mathbb{R}^{n \\times 2}\\): matriz de regressores, cada coluna é um termo do modelo.\n\n\\[\\mathbf{A} = \\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1 \\\\\n\\vdots & \\vdots \\\\\nx_n & 1\n\\end{bmatrix}\\]\n\n\\(\\boldsymbol{\\theta} \\in \\mathbb{R}^{2 \\times 1}\\): vetor de parâmetros \\(\\boldsymbol{\\theta} = [\\theta_1, \\theta_0]^T\\) a serem estimados.\n\\(\\mathbf{e} \\in \\mathbb{R}^{n \\times 1}\\): vetor de erros aleatórios. \\(\\mathbf{e} = [e_1, e_2, \\dots, e_n]^T\\)"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#estimar-parâmetros-que-minimizam-o-erro",
+    "href": "Identificacao/Ident01AjusteReta.html#estimar-parâmetros-que-minimizam-o-erro",
+    "title": "Ajuste de Reta",
+    "section": "Estimar parâmetros que minimizam o erro",
+    "text": "Estimar parâmetros que minimizam o erro\nA partir de \\(\\mathbb{y} = \\mathbf{A} \\boldsymbol{\\theta} + \\mathbf{e}\\), o erro pode ser expresso como: \\[\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\]\nO erro passa a ser função dos parâmetros \\(\\boldsymbol{\\theta}\\), já que \\(\\mathbf{y}\\) e \\(\\mathbf{A}\\) são conhecidos a partir dos dados medidos.\nCada escolha de \\(\\boldsymbol{\\theta}\\) gera um vetor de erros diferente.\nA questão é: qual o melhor valor para \\(\\boldsymbol{\\theta}\\)?\nIsto pode ser formalizado como um problema de otimização:\n\\[\\min_{\\boldsymbol{\\theta}} J(\\boldsymbol{\\theta})\\]\nLeia-se: “minimizar a função de custo \\(J\\) em relação aos parâmetros \\(\\boldsymbol{\\theta}\\)”.\n\\(J(\\boldsymbol{\\theta})\\) é uma função que mede a agregação dos erros individuais em um único valor a ser minimizado."
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#observação-dos-erros-resíduos",
+    "href": "Identificacao/Ident01AjusteReta.html#observação-dos-erros-resíduos",
+    "title": "Ajuste de Reta",
+    "section": "Observação dos Erros (Resíduos)",
+    "text": "Observação dos Erros (Resíduos)\nErros são a distância vertical entre os pontos medidos e a reta do modelo.\n\n\n\n\n\n\n\n\n\nO erro residual para cada amostra \\(i\\) é a diferença entre o valor medido e o predito \\(\\hat{y}_i\\) pelo modelo:\n\\[e_i = y_i - \\hat{y}_i\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#abordagem-matricial",
+    "href": "Identificacao/Ident01AjusteReta.html#abordagem-matricial",
+    "title": "Ajuste de Reta",
+    "section": "Abordagem matricial",
+    "text": "Abordagem matricial\nComo o erro é dado por \\(\\mathbf{e} = \\mathbf{y} - \\mathbf{A} \\boldsymbol{\\theta}\\), pode-se impor que o erro seja zero:\n\\[\\mathbf{A} \\boldsymbol{\\theta} = \\mathbf{y} \\]\nSe a matriz \\(\\mathbf{A}\\) for quadrada e inversível, a solução direta \\(\\boldsymbol{\\theta} = \\mathbf{A}^{-1} \\mathbf{y}\\). Mas nos casos práticos \\(\\mathbf{A}\\) não é quadrada. Neste caso pode-se aplicar \\(\\mathbf{A}^T\\) em ambos os lados da equação: \\[\\mathbf{A}^T \\mathbf{A} \\boldsymbol{\\theta} = \\mathbf{A}^T \\mathbf{y} \\]\nSe o produto \\(\\mathbf{A}^T \\mathbf{A}\\) for inversível então aplica-se esta inversa a ambos os lados:\n\\[(\\mathbf{A}^T \\mathbf{A})^{-1}(\\mathbf{A}^T \\mathbf{A})\\boldsymbol{\\theta} = (\\mathbf{A}^T \\mathbf{A})^{-1} \\mathbf{A}^T \\mathbf{y}\\]\nO que resulta em: \\[\\boldsymbol{\\theta} = (\\mathbf{A}^T \\mathbf{A})^{-1} \\mathbf{A}^T \\mathbf{y}\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#solução-python-dos-mínimos-quadrados",
+    "href": "Identificacao/Ident01AjusteReta.html#solução-python-dos-mínimos-quadrados",
+    "title": "Ajuste de Reta",
+    "section": "Solução Python dos Mínimos Quadrados",
+    "text": "Solução Python dos Mínimos Quadrados\nEm python os dados podem ser gerados como:\n\nimport numpy as np\n\n# Dados Gerados:\nnp.random.seed(12)\nx = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70])\ny = 0.05 * x + 0.5 + np.random.normal(0, 0.1, len(x))\nn = len(x)"
+  },
+  {
+    "objectID": "Identificacao/Ident01AjusteReta.html#section",
+    "href": "Identificacao/Ident01AjusteReta.html#section",
+    "title": "Ajuste de Reta",
+    "section": "",
+    "text": "Prof. Dr. Raphael Teixeira\nUniversidade Federal do Pará"
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#da-estática-à-dinâmica",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#da-estática-à-dinâmica",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Da Estática à Dinâmica",
+    "text": "Da Estática à Dinâmica\nNa aula anterior, ajustamos uma reta a dados estáticos: cada saída \\(y_i\\) dependia apenas da entrada \\(x_i\\) correspondente, no mesmo instante.\nSistemas dinâmicos têm memória: a saída no instante \\(k\\) depende de entradas e saídas passadas.\n\nNível de um tanque depende da vazão de entrada acumulada;\nVelocidade de um motor DC depende da tensão aplicada e da inércia;\nTemperatura de um forno responde de forma gradual à potência aplicada.\n\nPara identificar esses sistemas, precisamos de dados que capturem essa dinâmica — e de um sinal de entrada bem projetado para excitá-la."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#representação-entrada-saída",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#representação-entrada-saída",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Representação Entrada-Saída",
+    "text": "Representação Entrada-Saída\nUm sistema dinâmico discreto pode ser visto como um operador que transforma uma entrada \\(u[k]\\) em uma saída \\(y[k]\\), sujeito a uma perturbação \\(e[k]\\):\n\n\n\n\\(u[k]\\): entrada (conhecida/controlada); \\(y[k]\\): saída medida; \\(e[k]\\): ruído/perturbação não medida."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#por-que-simular",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#por-que-simular",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Por que Simular?",
+    "text": "Por que Simular?\nAntes de aplicar identificação a um sistema real, é valioso simular um sistema com parâmetros conhecidos:\n\nPermite gerar dados de forma controlada e repetível;\nO “gabarito” (parâmetros verdadeiros) é conhecido, então dá para validar se o método de identificação funciona;\nFacilita testar o efeito de diferentes sinais de entrada, ruídos e quantidades de dados — sem custo nem risco de um experimento real.\n\nVamos simular um sistema simples, coletar dados de entrada e saída, e (na próxima aula) estimar seus parâmetros a partir desses dados."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#modelo-arx-de-referência",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#modelo-arx-de-referência",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Modelo ARX de Referência",
+    "text": "Modelo ARX de Referência\nUm modelo discreto muito usado para representar a dinâmica é o ARX (AutoRegressive with eXogenous input):\n\\[A(q)\\,y[k] = B(q)\\,u[k] + e[k]\\]\nCom \\(A(q) = 1 + a_1 q^{-1}\\) e \\(B(q) = b_1 q^{-1}\\) (\\(q^{-1}\\) é o operador atraso: \\(q^{-1}y[k] = y[k-1]\\)), o modelo se escreve:\n\\[y[k] + a_1\\, y[k-1] = b_1\\, u[k-1] + e[k]\\]\nIsolando \\(y[k]\\):\n\\[y[k] = -a_1\\, y[k-1] + b_1\\, u[k-1] + e[k]\\]\nVamos adotar os valores verdadeiros \\(a_1 = -0{,}7\\) e \\(b_1 = 1{,}5\\) para gerar os dados simulados."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#diagrama-de-blocos-do-arx",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#diagrama-de-blocos-do-arx",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Diagrama de Blocos do ARX",
+    "text": "Diagrama de Blocos do ARX\n\n\n\nA saída realimenta a própria entrada do sistema (laço com atraso \\(q^{-1}\\)) — essa é a diferença estrutural em relação ao ajuste de reta, que não tinha realimentação."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#simulando-o-arx-em-python",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#simulando-o-arx-em-python",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Simulando o ARX em Python",
+    "text": "Simulando o ARX em Python\n\nimport numpy as np\n\na1_true, b1_true = -0.7, 1.5\nsigma_e = 0.3\n\ndef simula_arx(u, a1, b1, sigma_e, seed=None):\n    rng = np.random.default_rng(seed)\n    N = len(u)\n    y = np.zeros(N)\n    e = rng.normal(0, sigma_e, N)\n    for k in range(1, N):\n        y[k] = -a1 * y[k-1] + b1 * u[k-1] + e[k]\n    return y\n\nA função reproduz, amostra a amostra, a equação de diferenças do modelo ARX — este será nosso “sistema real” a ser identificado."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#qual-sinal-de-entrada-usar",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#qual-sinal-de-entrada-usar",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Qual Sinal de Entrada Usar?",
+    "text": "Qual Sinal de Entrada Usar?\nTestando o sistema com um simples degrau:\n\n\n\n\n\n\n\n\n\nApós o transitório, \\(u\\) e \\(y\\) ficam constantes: poucas amostras carregam informação nova sobre a dinâmica. Um único degrau não excita o sistema o suficiente para estimar bem \\(a_1\\) e \\(b_1\\)."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#persistência-de-excitação",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#persistência-de-excitação",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Persistência de Excitação",
+    "text": "Persistência de Excitação\nPara estimar os parâmetros com confiança, o sinal de entrada precisa ser persistentemente excitante: variar de forma rica o bastante para que a dinâmica do sistema se manifeste em várias condições.\nSinais de excitação comuns:\n\nDegrau / sequência de degraus — simples, mas pobre em conteúdo espectral;\nRuído branco — rico, mas amplitude difícil de limitar (picos podem saturar atuadores);\nPRBS (Pseudo-Random Binary Sequence) — alterna entre dois níveis fixos, combina riqueza espectral com amplitude limitada;\nChirp / multissenoidal — varredura controlada de frequências.\n\nVamos explorar o PRBS, um dos sinais mais usados na prática de identificação de sistemas."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#sequência-binária-pseudoaleatória-prbs",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#sequência-binária-pseudoaleatória-prbs",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Sequência Binária Pseudoaleatória (PRBS)",
+    "text": "Sequência Binária Pseudoaleatória (PRBS)\nUm PRBS é um sinal que alterna deterministicamente entre dois níveis (ex.: \\(-A\\) e \\(+A\\)), mas com um padrão que se comporta estatisticamente como ruído branco.\nPropriedades:\n\nPeriódico e determinístico — reprodutível, ao contrário de ruído real;\nEspectro aproximadamente plano (banda larga) até uma frequência de corte;\nAutocorrelação próxima de um impulso — característica de ruído branco;\nAmplitude limitada a dois níveis — protege atuadores e sensores contra excessos.\n\nPor isso é um sinal muito usado para excitar sistemas antes de um experimento de identificação."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#gerando-prbs-registrador-de-deslocamento-lfsr",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#gerando-prbs-registrador-de-deslocamento-lfsr",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Gerando PRBS: Registrador de Deslocamento (LFSR)",
+    "text": "Gerando PRBS: Registrador de Deslocamento (LFSR)\nA forma clássica de gerar um PRBS é um LFSR (Linear Feedback Shift Register): um registrador de \\(n\\) bits cujo bit de entrada é a soma (XOR) de bits específicos (“taps”) do próprio registrador.\n\n\n\nCom uma escolha adequada de taps (polinômio primitivo), o LFSR percorre todos os \\(2^n - 1\\) estados não nulos antes de repetir — gerando a sequência de comprimento máximo."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#prbs-na-mão-n-4-bits",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#prbs-na-mão-n-4-bits",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "PRBS “na Mão” (n = 4 bits)",
+    "text": "PRBS “na Mão” (n = 4 bits)\n\ndef lfsr(seed, taps, n_bits):\n    reg = list(seed)\n    out = []\n    for _ in range(n_bits):\n        out.append(reg[-1])\n        fb = reg[0] ^ reg[taps]      # XOR entre dois bits do registrador\n        reg = [fb] + reg[:-1]        # desloca e insere o novo bit\n    return out\n\nseq = lfsr(seed=[1,1,1,1], taps=3, n_bits=20)\nprint(seq)\nprint(\"Período =\", 2**4 - 1, \"(comprimento máximo para n=4)\")\n\n[1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0]\nPeríodo = 15 (comprimento máximo para n=4)\n\n\nA sequência de 15 bits se repete a partir da 16ª amostra — comprimento máximo \\(2^4-1=15\\), como esperado."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#prbs-na-prática-scipy.signal",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#prbs-na-prática-scipy.signal",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "PRBS na Prática: scipy.signal",
+    "text": "PRBS na Prática: scipy.signal\nPara uso real, geramos sequências mais longas com scipy.signal.max_len_seq:\n\nfrom scipy.signal import max_len_seq\n\nn_bits = 7                          # período = 2^7 - 1 = 127\nbits, _ = max_len_seq(n_bits)\nprbs_unit = 2 * bits - 1             # converte {0,1} -&gt; {-1,+1}\n\nTs_bit = 2                           # amostras por bit (segura o nível por Ts_bit passos)\nA = 1.5                              # amplitude\nu_prbs = A * np.repeat(prbs_unit, Ts_bit)\n\nprint(f\"Comprimento do PRBS: {len(u_prbs)} amostras\")\n\nComprimento do PRBS: 254 amostras\n\n\nTs_bit (duração de cada bit) controla a faixa de frequências excitada — veremos isso na análise espectral."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#degrau-vs.-prbs",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#degrau-vs.-prbs",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Degrau vs. PRBS",
+    "text": "Degrau vs. PRBS\n\n\n\n\n\n\n\n\n\nO degrau visita poucos “regimes”; o PRBS chaveia continuamente, revisitando transições em instantes variados."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#parâmetros-de-projeto-do-prbs",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#parâmetros-de-projeto-do-prbs",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Parâmetros de Projeto do PRBS",
+    "text": "Parâmetros de Projeto do PRBS\nDuas escolhas de projeto determinam a qualidade do experimento:\n\nDuração do bit \\(T_{bit}\\) (em amostras): deve ser menor ou da ordem da constante de tempo dominante do sistema, para excitar sua dinâmica rápida. \\[T_{bit} \\lesssim \\tau_{sistema}\\]\nDuração total do experimento: deve cobrir vários períodos do PRBS e ser bem maior que o tempo de acomodação do sistema, para que a dinâmica de regime permanente também seja capturada.\n\nPara o nosso sistema, o polo é \\(-a_1 = 0{,}7\\), o que dá uma constante de tempo (em amostras):\n\\[\\tau = \\frac{-1}{\\ln(0{,}7)} \\approx 2{,}8 \\text{ amostras}\\]\nCompatível com o \\(T_{bit}=2\\) amostras escolhido."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#coletando-os-dados",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#coletando-os-dados",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Coletando os Dados",
+    "text": "Coletando os Dados\n\nimport pandas as pd\n\ny_prbs = simula_arx(u_prbs, a1_true, b1_true, sigma_e, seed=42)\n\ndados = pd.DataFrame({'k': range(N), 'u': u_prbs, 'y': np.round(y_prbs, 3)})\ndados.head()\n\n\n\n\n\n\n\n\nk\nu\ny\n\n\n\n\n0\n0\n1.5\n0.000\n\n\n1\n1\n1.5\n1.938\n\n\n2\n2\n1.5\n3.832\n\n\n3\n3\n1.5\n5.214\n\n\n4\n4\n1.5\n5.315\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEsses dados \\((u[k], y[k])\\) serão usados na próxima aula para estimar o modelo ARX."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#por-que-olhar-no-domínio-da-frequência",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#por-que-olhar-no-domínio-da-frequência",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Por que Olhar no Domínio da Frequência?",
+    "text": "Por que Olhar no Domínio da Frequência?\nO sinal de entrada precisa “cobrir” as frequências que o sistema pode manifestar. Antes de rodar o experimento, é útil verificar quanto do espectro um sinal candidato realmente excita.\nA ferramenta para isso é a Transformada de Fourier, que decompõe um sinal temporal em suas componentes de frequência."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#transformada-de-fourier-discreta-dft",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#transformada-de-fourier-discreta-dft",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Transformada de Fourier Discreta (DFT)",
+    "text": "Transformada de Fourier Discreta (DFT)\nPara um sinal amostrado \\(x[k]\\), \\(k=0,\\dots,N-1\\), a DFT é:\n\\[X[m] = \\sum_{k=0}^{N-1} x[k]\\, e^{-j 2\\pi m k / N}, \\qquad m = 0, \\dots, N-1\\]\n\n\\(|X[m]|\\): quanto da energia do sinal está na frequência \\(f_m = m/(N T_s)\\);\nFrequência máxima representável (Nyquist): \\(f_{Nyq} = 1/(2T_s)\\);\nCalculada de forma eficiente via FFT (Fast Fourier Transform)."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#espectro-degrau-vs.-prbs",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#espectro-degrau-vs.-prbs",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Espectro: Degrau vs. PRBS",
+    "text": "Espectro: Degrau vs. PRBS\n\nfrom numpy.fft import rfft, rfftfreq\n\ndef espectro(x):\n    X = np.abs(rfft(x - np.mean(x)))\n    f = rfftfreq(len(x), d=1)     # frequência normalizada (ciclos/amostra)\n    return f, X\n\nf_step, X_step = espectro(u_step)\nf_prbs, X_prbs = espectro(u_prbs)\n\nfig, ax = plt.subplots(figsize=(10, 4))\nax.semilogy(f_step, X_step + 1e-3, color='darkorange', label='Degrau')\nax.semilogy(f_prbs, X_prbs + 1e-3, color='blue', label='PRBS', alpha=0.8)\nax.set_xlabel('Frequência (ciclos/amostra)'); ax.set_ylabel('|X[m]| (escala log)')\nax.legend(); ax.grid(alpha=0.4, which='both')\nplt.tight_layout(); plt.show()\n\n\n\n\n\n\n\n\nO degrau concentra energia em baixas frequências; o PRBS distribui energia em banda larga, testando o sistema em muito mais frequências."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#leitura-do-espectro-do-prbs",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#leitura-do-espectro-do-prbs",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Leitura do Espectro do PRBS",
+    "text": "Leitura do Espectro do PRBS\n\nO espectro do PRBS é aproximadamente plano até uma frequência relacionada a \\(1/T_{bit}\\), e decai depois disso;\nIsso significa que \\(T_{bit}\\) define até que frequência o sinal realmente excita o sistema;\n\\(T_{bit}\\) pequeno → excita frequências mais altas (dinâmicas rápidas); \\(T_{bit}\\) grande → energia concentrada em baixas frequências.\n\nPor isso a regra prática \\(T_{bit} \\lesssim \\tau_{sistema}\\): garante energia suficiente na faixa de frequências onde a dinâmica do sistema realmente responde."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#resumo",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#resumo",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "Resumo",
+    "text": "Resumo\n\nSistemas dinâmicos têm memória: \\(y[k]\\) depende do passado de \\(u\\) e \\(y\\);\nSimulamos um sistema ARX de referência com parâmetros conhecidos;\nUm degrau não excita o sistema o suficiente — é preciso um sinal persistentemente excitante;\nO PRBS é gerado por um LFSR, tem espectro de banda larga e amplitude limitada;\nProjetamos o PRBS (\\(T_{bit}\\), duração) e coletamos os dados \\((u[k], y[k])\\);\nA análise de Fourier confirma o conteúdo espectral do sinal de excitação.\n\nPróxima aula: usar esses dados para estimar os parâmetros do modelo ARX por mínimos quadrados."
+  },
+  {
+    "objectID": "Identificacao/Ident02SimulacaoPRBS.html#section",
+    "href": "Identificacao/Ident02SimulacaoPRBS.html#section",
+    "title": "Simulação de Sistemas e Sinais PRBS",
+    "section": "",
+    "text": "Prof. Dr. Raphael Teixeira\nUniversidade Federal do Pará"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Identificação de Sistemas",
     "section": "",
-    "text": "Identificação de Sistemas: Notas de ensino e pesquisa.\n\n01 - Ajuste de reta por mínimos quadrados"
+    "text": "Identificação de Sistemas: Notas de ensino e pesquisa.\n\n\n  Nota 1\n  Ajuste de reta por mínimos quadrados\n\n\n  Nota 2\n  Simulação de sistemas e sinais PRBS\n\n\n  Nota 3\n  Identificação de modelos ARX por mínimos quadrados"
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#da-reta-ao-arx",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#da-reta-ao-arx",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Da Reta ao ARX",
+    "text": "Da Reta ao ARX\nNa aula 01, ajustamos \\(y = \\theta_1 x + \\theta_0 + e\\) a dados estáticos, via mínimos quadrados:\n\\[\\boldsymbol{\\theta} = (\\mathbf{A}^T \\mathbf{A})^{-1} \\mathbf{A}^T \\mathbf{y}\\]\nNa aula 02, simulamos um sistema dinâmico ARX e coletamos dados \\((u[k], y[k])\\) excitando-o com um sinal PRBS.\nHoje: mostrar que o mesmo aparato de mínimos quadrados — só que com uma matriz de regressores diferente — permite estimar os parâmetros de um modelo dinâmico."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#modelo-arx",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#modelo-arx",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Modelo ARX",
+    "text": "Modelo ARX\nO modelo AutoRegressive with eXogenous input, com \\(n_a\\) termos autorregressivos e \\(n_b\\) termos de entrada:\n\\[y[k] + a_1 y[k-1] + \\dots + a_{n_a} y[k-n_a] = b_1 u[k-1] + \\dots + b_{n_b} u[k-n_b] + e[k]\\]\nOu, na forma polinomial em \\(q^{-1}\\):\n\\[A(q)\\, y[k] = B(q)\\, u[k] + e[k]\\]\n\\[A(q) = 1 + a_1 q^{-1} + \\dots + a_{n_a} q^{-n_a}, \\qquad B(q) = b_1 q^{-1} + \\dots + b_{n_b} q^{-n_b}\\]\nNo nosso exemplo (aula 02): \\(n_a = n_b = 1\\), com \\(a_1=-0{,}7\\) e \\(b_1=1{,}5\\)."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#diagrama-de-blocos-caso-geral",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#diagrama-de-blocos-caso-geral",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Diagrama de Blocos (caso geral)",
+    "text": "Diagrama de Blocos (caso geral)\n\n\n\n\\(B(q)\\) realimenta a entrada; o bloco \\(-[A(q)-1]\\) realimenta a própria saída — a estrutura recursiva que caracteriza um modelo dinâmico."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#reescrevendo-como-regressão-linear",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#reescrevendo-como-regressão-linear",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Reescrevendo como Regressão Linear",
+    "text": "Reescrevendo como Regressão Linear\nIsolando \\(y[k]\\):\n\\[y[k] = \\underbrace{-a_1 y[k-1] - \\dots - a_{n_a} y[k-n_a] + b_1 u[k-1] + \\dots + b_{n_b} u[k-n_b]}_{\\boldsymbol{\\varphi}[k]^T \\boldsymbol{\\theta}} + e[k]\\]\nDefinindo o vetor de regressores e o vetor de parâmetros:\n\\[\\boldsymbol{\\varphi}[k] = \\begin{bmatrix} -y[k-1] \\\\ \\vdots \\\\ -y[k-n_a] \\\\ u[k-1] \\\\ \\vdots \\\\ u[k-n_b] \\end{bmatrix}, \\qquad\n\\boldsymbol{\\theta} = \\begin{bmatrix} a_1 \\\\ \\vdots \\\\ a_{n_a} \\\\ b_1 \\\\ \\vdots \\\\ b_{n_b} \\end{bmatrix}\\]\nchega-se à mesma forma da aula 01:\n\\[y[k] = \\boldsymbol{\\varphi}[k]^T \\boldsymbol{\\theta} + e[k]\\]"
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#montando-a-matriz-de-regressores-boldsymbolphi",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#montando-a-matriz-de-regressores-boldsymbolphi",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Montando a Matriz de Regressores \\(\\boldsymbol{\\Phi}\\)",
+    "text": "Montando a Matriz de Regressores \\(\\boldsymbol{\\Phi}\\)\nEmpilhando \\(\\boldsymbol{\\varphi}[k]^T\\) para \\(k = n+1, \\dots, N\\) (onde \\(n=\\max(n_a,n_b)\\)), obtém-se o mesmo formato matricial da aula 01:\n\\[\\begin{bmatrix} y[n+1] \\\\ y[n+2] \\\\ \\vdots \\\\ y[N] \\end{bmatrix} =\n\\begin{bmatrix} \\boldsymbol{\\varphi}[n+1]^T \\\\ \\boldsymbol{\\varphi}[n+2]^T \\\\ \\vdots \\\\ \\boldsymbol{\\varphi}[N]^T \\end{bmatrix} \\boldsymbol{\\theta} +\n\\begin{bmatrix} e[n+1] \\\\ e[n+2] \\\\ \\vdots \\\\ e[N] \\end{bmatrix}\\]\n\\[\\mathbf{Y} = \\boldsymbol{\\Phi}\\, \\boldsymbol{\\theta} + \\mathbf{E}\\]\nA diferença para a aula 01 é só o conteúdo de \\(\\boldsymbol{\\Phi}\\): antes eram colunas \\([x_i, 1]\\); agora são saídas e entradas passadas."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#reconstruindo-os-dados-da-aula-02",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#reconstruindo-os-dados-da-aula-02",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Reconstruindo os Dados da Aula 02",
+    "text": "Reconstruindo os Dados da Aula 02\n\nimport numpy as np\nfrom scipy.signal import max_len_seq\n\na1_true, b1_true = -0.7, 1.5\nsigma_e = 0.3\n\ndef simula_arx(u, a1, b1, sigma_e, seed=None):\n    rng = np.random.default_rng(seed)\n    N = len(u)\n    y = np.zeros(N)\n    e = rng.normal(0, sigma_e, N)\n    for k in range(1, N):\n        y[k] = -a1 * y[k-1] + b1 * u[k-1] + e[k]\n    return y\n\nn_bits, Ts_bit, A = 7, 2, 1.5\nbits, _ = max_len_seq(n_bits)\nu_prbs = A * np.repeat(2*bits - 1, Ts_bit)\n\ny_prbs = simula_arx(u_prbs, a1_true, b1_true, sigma_e, seed=42)\nN = len(u_prbs)\nprint(f\"N = {N} amostras coletadas\")\n\nN = 254 amostras coletadas\n\n\nMesma semente (seed=42) e mesmos parâmetros da aula 02 — reprodutibilidade garantida."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#construindo-boldsymbolphi-e-mathbfy-caso-n_an_b1",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#construindo-boldsymbolphi-e-mathbfy-caso-n_an_b1",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Construindo \\(\\boldsymbol{\\Phi}\\) e \\(\\mathbf{Y}\\) (caso \\(n_a=n_b=1\\))",
+    "text": "Construindo \\(\\boldsymbol{\\Phi}\\) e \\(\\mathbf{Y}\\) (caso \\(n_a=n_b=1\\))\n\n# phi[k] = [-y[k-1], u[k-1]]  para k = 1, ..., N-1\nPhi = np.column_stack((-y_prbs[:-1], u_prbs[:-1]))\nY = y_prbs[1:]\n\nprint(\"Phi (5 primeiras linhas):\")\nprint(Phi[:5])\nprint(\"Shape de Phi:\", Phi.shape)\n\nPhi (5 primeiras linhas):\n[[-0.          1.5       ]\n [-1.93800477  1.5       ]\n [-3.8317387   1.5       ]\n [-5.2143865   1.5       ]\n [-5.31476     1.5       ]]\nShape de Phi: (253, 2)\n\n\nCada linha de \\(\\boldsymbol{\\Phi}\\) contém \\([-y[k-1],\\ u[k-1]]\\); cada elemento de \\(\\mathbf{Y}\\) é o correspondente \\(y[k]\\)."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#estimador-de-mínimos-quadrados",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#estimador-de-mínimos-quadrados",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Estimador de Mínimos Quadrados",
+    "text": "Estimador de Mínimos Quadrados\nExatamente a mesma equação normal da aula 01, agora aplicada a \\(\\boldsymbol{\\Phi}\\):\n\\[\\boldsymbol{\\theta} = \\arg\\min_{\\boldsymbol{\\theta}} \\|\\mathbf{Y} - \\boldsymbol{\\Phi}\\boldsymbol{\\theta}\\|^2 \\quad\\Longrightarrow\\quad \\boldsymbol{\\theta} = (\\boldsymbol{\\Phi}^T \\boldsymbol{\\Phi})^{-1} \\boldsymbol{\\Phi}^T \\mathbf{Y}\\]\n\ntheta_hat = np.linalg.inv(Phi.T @ Phi) @ Phi.T @ Y\na1_hat, b1_hat = theta_hat\n\nprint(f\"a1: verdadeiro={a1_true:.4f}  estimado={a1_hat:.4f}\")\nprint(f\"b1: verdadeiro={b1_true:.4f}  estimado={b1_hat:.4f}\")\n\na1: verdadeiro=-0.7000  estimado=-0.6949\nb1: verdadeiro=1.5000  estimado=1.4994\n\n\nCom dados gerados por PRBS, a estimativa fica muito próxima dos valores verdadeiros usados na simulação."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#predição-um-passo-à-frente",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#predição-um-passo-à-frente",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Predição Um Passo à Frente",
+    "text": "Predição Um Passo à Frente\nO modelo estimado prevê \\(y[k]\\) usando o valor real de \\(y[k-1]\\) (disponível no conjunto de dados):\n\ny_pred_1passo = Phi @ theta_hat"
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#predição-vs.-simulação-livre",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#predição-vs.-simulação-livre",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Predição vs. Simulação Livre",
+    "text": "Predição vs. Simulação Livre\nDuas formas de usar o modelo estimado são bem diferentes:\n\nPredição um passo à frente: usa o \\(y\\) real do instante anterior — sempre disponível durante a estimação, mas “trapaceia” ao validar o modelo;\nSimulação livre: realimenta a própria saída predita, sem nunca olhar o \\(y\\) real — é o teste mais rigoroso, pois é assim que o modelo seria usado para prever o futuro sem medições."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#simulando-em-malha-livre",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#simulando-em-malha-livre",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Simulando em Malha Livre",
+    "text": "Simulando em Malha Livre\n\ndef simula_livre(u, theta):\n    a1, b1 = theta\n    N = len(u)\n    yhat = np.zeros(N)\n    for k in range(1, N):\n        yhat[k] = -a1 * yhat[k-1] + b1 * u[k-1]\n    return yhat\n\ny_livre = simula_livre(u_prbs, theta_hat)\n\n\n\n\n\n\n\n\n\n\nMesmo em malha livre — sem nenhuma realimentação de dados reais — o modelo acompanha bem a saída medida: sinal de que \\(a_1, b_1\\) foram bem estimados."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#qualidade-do-ajuste-métrica-fit",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#qualidade-do-ajuste-métrica-fit",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Qualidade do Ajuste: métrica FIT%",
+    "text": "Qualidade do Ajuste: métrica FIT%\nUma métrica comum em identificação de sistemas normaliza o erro pela variação do próprio sinal:\n\\[\\text{FIT}\\% = 100 \\left(1 - \\frac{\\|\\mathbf{y} - \\hat{\\mathbf{y}}\\|}{\\|\\mathbf{y} - \\bar{y}\\|}\\right)\\]\n\ndef fit_pct(y, y_hat):\n    return 100 * (1 - np.linalg.norm(y - y_hat) / np.linalg.norm(y - np.mean(y)))\n\nprint(f\"FIT% (predição 1 passo): {fit_pct(Y, y_pred_1passo):.2f}%\")\nprint(f\"FIT% (simulação livre):  {fit_pct(y_prbs, y_livre):.2f}%\")\n\nFIT% (predição 1 passo): 93.08%\nFIT% (simulação livre):  90.41%\n\n\nFIT% = 100% seria ajuste perfeito; FIT% = 0% equivale a prever apenas a média do sinal."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#resíduos",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#resíduos",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Resíduos",
+    "text": "Resíduos\nO resíduo é a parte de \\(y[k]\\) que o modelo não conseguiu explicar:\n\\[\\hat{e}[k] = y[k] - \\boldsymbol{\\varphi}[k]^T \\hat{\\boldsymbol{\\theta}}\\]\n\nresiduos = Y - y_pred_1passo\n\n\n\n\n\n\n\n\n\n\nSe o modelo captura bem a dinâmica, o resíduo deve parecer ruído branco — sem padrão temporal."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#checando-a-brancura-dos-resíduos",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#checando-a-brancura-dos-resíduos",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Checando a “Brancura” dos Resíduos",
+    "text": "Checando a “Brancura” dos Resíduos\nA autocorrelação mede se o resíduo em \\(k\\) tem relação com o resíduo em \\(k-\\ell\\). Para ruído branco, ela deve ficar próxima de zero para \\(\\ell \\neq 0\\):\n\ndef acf(x, max_lag):\n    x = x - np.mean(x)\n    N = len(x)\n    c0 = np.sum(x * x) / N\n    return np.array([np.sum(x[:N-lag] * x[lag:]) / N / c0 for lag in range(max_lag + 1)])\n\nr = acf(residuos, max_lag=20)\nlimite = 1.96 / np.sqrt(len(residuos))   # faixa de confiança ~95% para ruído branco\n\n\n\n\n\n\n\n\n\n\nOs valores permanecem dentro da faixa de 95% (linhas vermelhas) — consistente com resíduo branco, indicando que a estrutura \\(n_a=n_b=1\\) foi suficiente."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#efeito-da-ordem-do-modelo",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#efeito-da-ordem-do-modelo",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Efeito da Ordem do Modelo",
+    "text": "Efeito da Ordem do Modelo\n\nOrdem baixa demais (\\(n_a, n_b\\) pequenos): o modelo não tem “graus de liberdade” para capturar a dinâmica → resíduos correlacionados (viés);\nOrdem alta demais: o modelo passa a ajustar o próprio ruído (overfitting) → parâmetros extras com pouco significado físico, sensíveis a novos dados;\nCritérios formais de escolha de ordem (ex.: AIC, critério de informação) penalizam modelos com parâmetros em excesso — tema de aulas futuras.\n\nNa prática: aumente a ordem apenas enquanto o FIT% melhorar de forma expressiva e os resíduos permanecerem não-brancos."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#voltando-ao-prbs-e-se-fosse-um-degrau",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#voltando-ao-prbs-e-se-fosse-um-degrau",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Voltando ao PRBS: e se fosse um Degrau?",
+    "text": "Voltando ao PRBS: e se fosse um Degrau?\n\nu_step = np.concatenate([np.zeros(10), A*np.ones(N-10)])\ny_step = simula_arx(u_step, a1_true, b1_true, sigma_e, seed=42)\n\nPhi_step = np.column_stack((-y_step[:-1], u_step[:-1]))\ntheta_step = np.linalg.inv(Phi_step.T @ Phi_step) @ Phi_step.T @ y_step[1:]\n\nprint(f\"cond(Phi) com PRBS:  {np.linalg.cond(Phi):.1f}\")\nprint(f\"cond(Phi) com degrau: {np.linalg.cond(Phi_step):.1f}\")\nprint(f\"theta_hat (degrau): a1={theta_step[0]:.3f}, b1={theta_step[1]:.3f}  |  verdadeiro: a1={a1_true}, b1={b1_true}\")\n\ncond(Phi) com PRBS:  2.9\ncond(Phi) com degrau: 50.4\ntheta_hat (degrau): a1=-0.674, b1=1.620  |  verdadeiro: a1=-0.7, b1=1.5\n\n\nO número de condição de \\(\\boldsymbol{\\Phi}\\) é muito maior com o degrau, e a estimativa de \\(b_1\\) fica visivelmente pior — a falta de persistência de excitação compromete a identificação, mesmo usando o mesmo estimador de mínimos quadrados."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#resumo",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#resumo",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "Resumo",
+    "text": "Resumo\n\nO modelo ARX vira uma regressão linear ao definir \\(\\boldsymbol{\\varphi}[k]\\) com saídas e entradas passadas;\nA mesma equação normal \\(\\boldsymbol{\\theta}=(\\boldsymbol{\\Phi}^T\\boldsymbol{\\Phi})^{-1}\\boldsymbol{\\Phi}^T\\mathbf{Y}\\) da aula 01 se aplica diretamente;\nPredição 1 passo vs. simulação livre avaliam o modelo de formas diferentes — a simulação livre é o teste mais exigente;\nFIT% e autocorrelação dos resíduos ajudam a julgar a qualidade e a ordem do modelo;\nA qualidade da estimativa depende diretamente da persistência de excitação do sinal de entrada (aula 02).\n\nPróximos temas: modelos com ruído colorido (ARMAX), mínimos quadrados recursivo, seleção de ordem."
+  },
+  {
+    "objectID": "Identificacao/Ident03ARXMinimosQuadrados.html#section",
+    "href": "Identificacao/Ident03ARXMinimosQuadrados.html#section",
+    "title": "Identificação de Modelos ARX por Mínimos Quadrados",
+    "section": "",
+    "text": "Prof. Dr. Raphael Teixeira\nUniversidade Federal do Pará"
   }
 ]

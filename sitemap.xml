@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://raphateixeira.github.io/Identificacao/index.html</loc>
-    <lastmod>2026-04-28T11:53:34.346Z</lastmod>
-  </url>
-  <url>
     <loc>https://raphateixeira.github.io/Identificacao/Identificacao/Ident01AjusteReta.html</loc>
-    <lastmod>2026-04-28T11:53:34.342Z</lastmod>
+    <lastmod>2026-07-10T02:42:14.916Z</lastmod>
   </url>
   <url>
-    <loc>https://raphateixeira.github.io/Identificacao/Identificacao/Ident02MinimosQuadradosARX.html</loc>
-    <lastmod>2026-04-28T11:56:41.454Z</lastmod>
+    <loc>https://raphateixeira.github.io/Identificacao/Identificacao/Ident02SimulacaoPRBS.html</loc>
+    <lastmod>2026-07-10T02:42:14.916Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raphateixeira.github.io/Identificacao/index.html</loc>
+    <lastmod>2026-07-10T02:42:14.918Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raphateixeira.github.io/Identificacao/Identificacao/Ident03ARXMinimosQuadrados.html</loc>
+    <lastmod>2026-07-10T02:42:14.916Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9de9f6925d305bcf5b7eb9351f368d06.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Prof.&nbsp;Dr.&nbsp;Raphael Teixeira">
+  <title>Identificação de Sistemas – Simulação de Sistemas e Sinais PRBS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2; background-color: #2e3440; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #75715e; } /* Annotation */
+    code span.at { color: #f92672; } /* Attribute */
+    code span.bn { color: #ae81ff; } /* BaseN */
+    code span.bu { color: #66d9ef; } /* BuiltIn */
+    code span.cf { color: #f92672; } /* ControlFlow */
+    code span.ch { color: #e6db74; } /* Char */
+    code span.cn { color: #ae81ff; } /* Constant */
+    code span.co { color: #75715e; } /* Comment */
+    code span.cv { color: #75715e; } /* CommentVar */
+    code span.do { color: #75715e; } /* Documentation */
+    code span.dt { color: #66d9ef; font-style: italic; } /* DataType */
+    code span.dv { color: #ae81ff; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #a6e22e; font-weight: bold; } /* Extension */
+    code span.fl { color: #ae81ff; } /* Float */
+    code span.fu { color: #a6e22e; } /* Function */
+    code span.im { color: #f92672; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #f92672; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #a6e22e; } /* Other */
+    code span.pp { color: #f92672; } /* Preprocessor */
+    code span.re { color: #75715e; } /* RegionMarker */
+    code span.sc { color: #ae81ff; } /* SpecialChar */
+    code span.ss { color: #e6db74; } /* SpecialString */
+    code span.st { color: #e6db74; } /* String */
+    code span.va { color: #f8f8f2; } /* Variable */
+    code span.vs { color: #e6db74; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-73204f2ac502c4fbbefb2bf2e6602ffe.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Simulação de Sistemas e Sinais PRBS</h1>
+  <p class="subtitle">Identificação de Sistemas</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Prof.&nbsp;Dr.&nbsp;Raphael Teixeira 
+</div>
+        <p class="quarto-title-affiliation">
+            Universidade Federal do Pará
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="da-estática-à-dinâmica" class="slide level2">
+<h2>Da Estática à Dinâmica</h2>
+<p>Na aula anterior, ajustamos uma reta a dados <strong>estáticos</strong>: cada saída <span class="math inline">\(y_i\)</span> dependia apenas da entrada <span class="math inline">\(x_i\)</span> correspondente, no mesmo instante.</p>
+<p>Sistemas <strong>dinâmicos</strong> têm memória: a saída no instante <span class="math inline">\(k\)</span> depende de entradas e saídas <strong>passadas</strong>.</p>
+<ul>
+<li>Nível de um tanque depende da vazão de entrada acumulada;</li>
+<li>Velocidade de um motor DC depende da tensão aplicada e da inércia;</li>
+<li>Temperatura de um forno responde de forma gradual à potência aplicada.</li>
+</ul>
+<p>Para identificar esses sistemas, precisamos de dados que capturem essa dinâmica — e de um <strong>sinal de entrada bem projetado</strong> para excitá-la.</p>
+</section>
+<section id="representação-entrada-saída" class="slide level2">
+<h2>Representação Entrada-Saída</h2>
+<p>Um sistema dinâmico discreto pode ser visto como um operador que transforma uma entrada <span class="math inline">\(u[k]\)</span> em uma saída <span class="math inline">\(y[k]\)</span>, sujeito a uma perturbação <span class="math inline">\(e[k]\)</span>:</p>
+<div class="{tikz}">
+<img data-src="Ident02SimulacaoPRBS_files/tikz/256b35f15d323021b999b40b3dabface9aa25348.svg">
+</div>
+<p><span class="math inline">\(u[k]\)</span>: entrada (conhecida/controlada); <span class="math inline">\(y[k]\)</span>: saída medida; <span class="math inline">\(e[k]\)</span>: ruído/perturbação não medida.</p>
+</section>
+<section id="por-que-simular" class="slide level2">
+<h2>Por que Simular?</h2>
+<p>Antes de aplicar identificação a um sistema real, é valioso <strong>simular</strong> um sistema com parâmetros conhecidos:</p>
+<ul>
+<li>Permite gerar dados de forma controlada e repetível;</li>
+<li>O “gabarito” (parâmetros verdadeiros) é conhecido, então dá para <strong>validar</strong> se o método de identificação funciona;</li>
+<li>Facilita testar o efeito de diferentes sinais de entrada, ruídos e quantidades de dados — sem custo nem risco de um experimento real.</li>
+</ul>
+<p>Vamos simular um sistema simples, coletar dados de entrada e saída, e (na próxima aula) estimar seus parâmetros a partir desses dados.</p>
+</section>
+<section id="modelo-arx-de-referência" class="slide level2">
+<h2>Modelo ARX de Referência</h2>
+<p>Um modelo discreto muito usado para representar a dinâmica é o <strong>ARX</strong> (<em>AutoRegressive with eXogenous input</em>):</p>
+<p><span class="math display">\[A(q)\,y[k] = B(q)\,u[k] + e[k]\]</span></p>
+<p>Com <span class="math inline">\(A(q) = 1 + a_1 q^{-1}\)</span> e <span class="math inline">\(B(q) = b_1 q^{-1}\)</span> (<span class="math inline">\(q^{-1}\)</span> é o operador atraso: <span class="math inline">\(q^{-1}y[k] = y[k-1]\)</span>), o modelo se escreve:</p>
+<p><span class="math display">\[y[k] + a_1\, y[k-1] = b_1\, u[k-1] + e[k]\]</span></p>
+<p>Isolando <span class="math inline">\(y[k]\)</span>:</p>
+<p><span class="math display">\[y[k] = -a_1\, y[k-1] + b_1\, u[k-1] + e[k]\]</span></p>
+<p>Vamos adotar os valores verdadeiros <span class="math inline">\(a_1 = -0{,}7\)</span> e <span class="math inline">\(b_1 = 1{,}5\)</span> para gerar os dados simulados.</p>
+</section>
+<section id="diagrama-de-blocos-do-arx" class="slide level2">
+<h2>Diagrama de Blocos do ARX</h2>
+<div class="{tikz}">
+<img data-src="Ident02SimulacaoPRBS_files/tikz/77e42c0994bdcf1b67c43d29eaaf7b37376d76c6.svg">
+</div>
+<p>A saída realimenta a própria entrada do sistema (laço com atraso <span class="math inline">\(q^{-1}\)</span>) — essa é a diferença estrutural em relação ao ajuste de reta, que não tinha realimentação.</p>
+</section>
+<section id="simulando-o-arx-em-python" class="slide level2">
+<h2>Simulando o ARX em Python</h2>
+<div id="932d0e37" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>a1_true, b1_true <span class="op">=</span> <span class="op">-</span><span class="fl">0.7</span>, <span class="fl">1.5</span></span>
+<span id="cb1-4"><a></a>sigma_e <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a><span class="kw">def</span> simula_arx(u, a1, b1, sigma_e, seed<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-7"><a></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb1-8"><a></a>    N <span class="op">=</span> <span class="bu">len</span>(u)</span>
+<span id="cb1-9"><a></a>    y <span class="op">=</span> np.zeros(N)</span>
+<span id="cb1-10"><a></a>    e <span class="op">=</span> rng.normal(<span class="dv">0</span>, sigma_e, N)</span>
+<span id="cb1-11"><a></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N):</span>
+<span id="cb1-12"><a></a>        y[k] <span class="op">=</span> <span class="op">-</span>a1 <span class="op">*</span> y[k<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> b1 <span class="op">*</span> u[k<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> e[k]</span>
+<span id="cb1-13"><a></a>    <span class="cf">return</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A função reproduz, amostra a amostra, a equação de diferenças do modelo ARX — este será nosso “sistema real” a ser identificado.</p>
+</section>
+<section id="qual-sinal-de-entrada-usar" class="slide level2">
+<h2>Qual Sinal de Entrada Usar?</h2>
+<p>Testando o sistema com um simples degrau:</p>
+<div id="75690d39" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Ident02SimulacaoPRBS_files/figure-revealjs/cell-3-output-1.png" width="1046" height="325"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Após o transitório, <span class="math inline">\(u\)</span> e <span class="math inline">\(y\)</span> ficam <strong>constantes</strong>: poucas amostras carregam informação nova sobre a dinâmica. Um único degrau <strong>não excita</strong> o sistema o suficiente para estimar bem <span class="math inline">\(a_1\)</span> e <span class="math inline">\(b_1\)</span>.</p>
+</section>
+<section id="persistência-de-excitação" class="slide level2">
+<h2>Persistência de Excitação</h2>
+<p>Para estimar os parâmetros com confiança, o sinal de entrada precisa ser <strong>persistentemente excitante</strong>: variar de forma rica o bastante para que a dinâmica do sistema se manifeste em várias condições.</p>
+<p>Sinais de excitação comuns:</p>
+<ul>
+<li><strong>Degrau / sequência de degraus</strong> — simples, mas pobre em conteúdo espectral;</li>
+<li><strong>Ruído branco</strong> — rico, mas amplitude difícil de limitar (picos podem saturar atuadores);</li>
+<li><strong>PRBS</strong> (<em>Pseudo-Random Binary Sequence</em>) — alterna entre dois níveis fixos, combina riqueza espectral com amplitude limitada;</li>
+<li><strong>Chirp / multissenoidal</strong> — varredura controlada de frequências.</li>
+</ul>
+<p>Vamos explorar o <strong>PRBS</strong>, um dos sinais mais usados na prática de identificação de sistemas.</p>
+</section>
+<section id="sequência-binária-pseudoaleatória-prbs" class="slide level2">
+<h2>Sequência Binária Pseudoaleatória (PRBS)</h2>
+<p>Um PRBS é um sinal que alterna <strong>deterministicamente</strong> entre dois níveis (ex.: <span class="math inline">\(-A\)</span> e <span class="math inline">\(+A\)</span>), mas com um padrão que <strong>se comporta estatisticamente como ruído branco</strong>.</p>
+<p>Propriedades:</p>
+<ul>
+<li><strong>Periódico e determinístico</strong> — reprodutível, ao contrário de ruído real;</li>
+<li><strong>Espectro aproximadamente plano</strong> (banda larga) até uma frequência de corte;</li>
+<li><strong>Autocorrelação próxima de um impulso</strong> — característica de ruído branco;</li>
+<li><strong>Amplitude limitada</strong> a dois níveis — protege atuadores e sensores contra excessos.</li>
+</ul>
+<p>Por isso é um sinal muito usado para excitar sistemas antes de um experimento de identificação.</p>
+</section>
+<section id="gerando-prbs-registrador-de-deslocamento-lfsr" class="slide level2">
+<h2>Gerando PRBS: Registrador de Deslocamento (LFSR)</h2>
+<p>A forma clássica de gerar um PRBS é um <strong>LFSR</strong> (<em>Linear Feedback Shift Register</em>): um registrador de <span class="math inline">\(n\)</span> bits cujo bit de entrada é a soma (XOR) de bits específicos (“taps”) do próprio registrador.</p>
+<div class="{tikz}">
+<img data-src="Ident02SimulacaoPRBS_files/tikz/976cbfdbb39d0d808dc5b0b33057559f37ac837c.svg">
+</div>
+<p>Com uma escolha adequada de taps (polinômio primitivo), o LFSR percorre <strong>todos</strong> os <span class="math inline">\(2^n - 1\)</span> estados não nulos antes de repetir — gerando a sequência de <strong>comprimento máximo</strong>.</p>
+</section>
+<section id="prbs-na-mão-n-4-bits" class="slide level2">
+<h2>PRBS “na Mão” (n = 4 bits)</h2>
+<div id="a172de9b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="kw">def</span> lfsr(seed, taps, n_bits):</span>
+<span id="cb2-2"><a></a>    reg <span class="op">=</span> <span class="bu">list</span>(seed)</span>
+<span id="cb2-3"><a></a>    out <span class="op">=</span> []</span>
+<span id="cb2-4"><a></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_bits):</span>
+<span id="cb2-5"><a></a>        out.append(reg[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb2-6"><a></a>        fb <span class="op">=</span> reg[<span class="dv">0</span>] <span class="op">^</span> reg[taps]      <span class="co"># XOR entre dois bits do registrador</span></span>
+<span id="cb2-7"><a></a>        reg <span class="op">=</span> [fb] <span class="op">+</span> reg[:<span class="op">-</span><span class="dv">1</span>]        <span class="co"># desloca e insere o novo bit</span></span>
+<span id="cb2-8"><a></a>    <span class="cf">return</span> out</span>
+<span id="cb2-9"><a></a></span>
+<span id="cb2-10"><a></a>seq <span class="op">=</span> lfsr(seed<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>], taps<span class="op">=</span><span class="dv">3</span>, n_bits<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb2-11"><a></a><span class="bu">print</span>(seq)</span>
+<span id="cb2-12"><a></a><span class="bu">print</span>(<span class="st">"Período ="</span>, <span class="dv">2</span><span class="op">**</span><span class="dv">4</span> <span class="op">-</span> <span class="dv">1</span>, <span class="st">"(comprimento máximo para n=4)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0]
+Período = 15 (comprimento máximo para n=4)</code></pre>
+</div>
+</div>
+<p>A sequência de 15 bits se repete a partir da 16ª amostra — comprimento máximo <span class="math inline">\(2^4-1=15\)</span>, como esperado.</p>
+</section>
+<section id="prbs-na-prática-scipy.signal" class="slide level2">
+<h2>PRBS na Prática: <code>scipy.signal</code></h2>
+<p>Para uso real, geramos sequências mais longas com <code>scipy.signal.max_len_seq</code>:</p>
+<div id="f548e57b" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> scipy.signal <span class="im">import</span> max_len_seq</span>
+<span id="cb4-2"><a></a></span>
+<span id="cb4-3"><a></a>n_bits <span class="op">=</span> <span class="dv">7</span>                          <span class="co"># período = 2^7 - 1 = 127</span></span>
+<span id="cb4-4"><a></a>bits, _ <span class="op">=</span> max_len_seq(n_bits)</span>
+<span id="cb4-5"><a></a>prbs_unit <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> bits <span class="op">-</span> <span class="dv">1</span>             <span class="co"># converte {0,1} -&gt; {-1,+1}</span></span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a>Ts_bit <span class="op">=</span> <span class="dv">2</span>                           <span class="co"># amostras por bit (segura o nível por Ts_bit passos)</span></span>
+<span id="cb4-8"><a></a>A <span class="op">=</span> <span class="fl">1.5</span>                              <span class="co"># amplitude</span></span>
+<span id="cb4-9"><a></a>u_prbs <span class="op">=</span> A <span class="op">*</span> np.repeat(prbs_unit, Ts_bit)</span>
+<span id="cb4-10"><a></a></span>
+<span id="cb4-11"><a></a><span class="bu">print</span>(<span class="ss">f"Comprimento do PRBS: </span><span class="sc">{</span><span class="bu">len</span>(u_prbs)<span class="sc">}</span><span class="ss"> amostras"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Comprimento do PRBS: 254 amostras</code></pre>
+</div>
+</div>
+<p><code>Ts_bit</code> (duração de cada bit) controla a <strong>faixa de frequências</strong> excitada — veremos isso na análise espectral.</p>
+</section>
+<section id="degrau-vs.-prbs" class="slide level2">
+<h2>Degrau vs.&nbsp;PRBS</h2>
+<div id="89532c89" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Ident02SimulacaoPRBS_files/figure-revealjs/cell-6-output-1.png" width="950" height="326"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O degrau visita poucos “regimes”; o PRBS chaveia continuamente, revisitando transições em instantes variados.</p>
+</section>
+<section id="parâmetros-de-projeto-do-prbs" class="slide level2">
+<h2>Parâmetros de Projeto do PRBS</h2>
+<p>Duas escolhas de projeto determinam a qualidade do experimento:</p>
+<ul>
+<li><p><strong>Duração do bit <span class="math inline">\(T_{bit}\)</span></strong> (em amostras): deve ser <strong>menor ou da ordem da constante de tempo dominante</strong> do sistema, para excitar sua dinâmica rápida. <span class="math display">\[T_{bit} \lesssim \tau_{sistema}\]</span></p></li>
+<li><p><strong>Duração total do experimento</strong>: deve cobrir <strong>vários períodos</strong> do PRBS e ser bem maior que o tempo de acomodação do sistema, para que a dinâmica de regime permanente também seja capturada.</p></li>
+</ul>
+<p>Para o nosso sistema, o polo é <span class="math inline">\(-a_1 = 0{,}7\)</span>, o que dá uma constante de tempo (em amostras):</p>
+<p><span class="math display">\[\tau = \frac{-1}{\ln(0{,}7)} \approx 2{,}8 \text{ amostras}\]</span></p>
+<p>Compatível com o <span class="math inline">\(T_{bit}=2\)</span> amostras escolhido.</p>
+</section>
+<section id="coletando-os-dados" class="slide level2">
+<h2>Coletando os Dados</h2>
+<div id="6c229c06" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a>y_prbs <span class="op">=</span> simula_arx(u_prbs, a1_true, b1_true, sigma_e, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-4"><a></a></span>
+<span id="cb6-5"><a></a>dados <span class="op">=</span> pd.DataFrame({<span class="st">'k'</span>: <span class="bu">range</span>(N), <span class="st">'u'</span>: u_prbs, <span class="st">'y'</span>: np.<span class="bu">round</span>(y_prbs, <span class="dv">3</span>)})</span>
+<span id="cb6-6"><a></a>dados.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">k</th>
+<th data-quarto-table-cell-role="th">u</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>1.5</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1</td>
+<td>1.5</td>
+<td>1.938</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>1.5</td>
+<td>3.832</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>3</td>
+<td>1.5</td>
+<td>5.214</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>4</td>
+<td>1.5</td>
+<td>5.315</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cae1a18a" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Ident02SimulacaoPRBS_files/figure-revealjs/cell-8-output-1.png" width="963" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Esses dados <span class="math inline">\((u[k], y[k])\)</span> serão usados na próxima aula para <strong>estimar</strong> o modelo ARX.</p>
+</section>
+<section id="por-que-olhar-no-domínio-da-frequência" class="slide level2">
+<h2>Por que Olhar no Domínio da Frequência?</h2>
+<p>O sinal de entrada precisa “cobrir” as frequências que o sistema pode manifestar. Antes de rodar o experimento, é útil verificar <strong>quanto do espectro</strong> um sinal candidato realmente excita.</p>
+<p>A ferramenta para isso é a <strong>Transformada de Fourier</strong>, que decompõe um sinal temporal em suas componentes de frequência.</p>
+</section>
+<section id="transformada-de-fourier-discreta-dft" class="slide level2">
+<h2>Transformada de Fourier Discreta (DFT)</h2>
+<p>Para um sinal amostrado <span class="math inline">\(x[k]\)</span>, <span class="math inline">\(k=0,\dots,N-1\)</span>, a DFT é:</p>
+<p><span class="math display">\[X[m] = \sum_{k=0}^{N-1} x[k]\, e^{-j 2\pi m k / N}, \qquad m = 0, \dots, N-1\]</span></p>
+<ul>
+<li><span class="math inline">\(|X[m]|\)</span>: quanto da energia do sinal está na frequência <span class="math inline">\(f_m = m/(N T_s)\)</span>;</li>
+<li>Frequência máxima representável (Nyquist): <span class="math inline">\(f_{Nyq} = 1/(2T_s)\)</span>;</li>
+<li>Calculada de forma eficiente via <strong>FFT</strong> (<em>Fast Fourier Transform</em>).</li>
+</ul>
+</section>
+<section id="espectro-degrau-vs.-prbs" class="slide level2">
+<h2>Espectro: Degrau vs.&nbsp;PRBS</h2>
+<div id="a9b1302a" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> numpy.fft <span class="im">import</span> rfft, rfftfreq</span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a><span class="kw">def</span> espectro(x):</span>
+<span id="cb7-4"><a></a>    X <span class="op">=</span> np.<span class="bu">abs</span>(rfft(x <span class="op">-</span> np.mean(x)))</span>
+<span id="cb7-5"><a></a>    f <span class="op">=</span> rfftfreq(<span class="bu">len</span>(x), d<span class="op">=</span><span class="dv">1</span>)     <span class="co"># frequência normalizada (ciclos/amostra)</span></span>
+<span id="cb7-6"><a></a>    <span class="cf">return</span> f, X</span>
+<span id="cb7-7"><a></a></span>
+<span id="cb7-8"><a></a>f_step, X_step <span class="op">=</span> espectro(u_step)</span>
+<span id="cb7-9"><a></a>f_prbs, X_prbs <span class="op">=</span> espectro(u_prbs)</span>
+<span id="cb7-10"><a></a></span>
+<span id="cb7-11"><a></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb7-12"><a></a>ax.semilogy(f_step, X_step <span class="op">+</span> <span class="fl">1e-3</span>, color<span class="op">=</span><span class="st">'darkorange'</span>, label<span class="op">=</span><span class="st">'Degrau'</span>)</span>
+<span id="cb7-13"><a></a>ax.semilogy(f_prbs, X_prbs <span class="op">+</span> <span class="fl">1e-3</span>, color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'PRBS'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb7-14"><a></a>ax.set_xlabel(<span class="st">'Frequência (ciclos/amostra)'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'|X[m]| (escala log)'</span>)</span>
+<span id="cb7-15"><a></a>ax.legend()<span class="op">;</span> ax.grid(alpha<span class="op">=</span><span class="fl">0.4</span>, which<span class="op">=</span><span class="st">'both'</span>)</span>
+<span id="cb7-16"><a></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Ident02SimulacaoPRBS_files/figure-revealjs/cell-9-output-1.png" width="950" height="375"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O degrau concentra energia em baixas frequências; o PRBS distribui energia em <strong>banda larga</strong>, testando o sistema em muito mais frequências.</p>
+</section>
+<section id="leitura-do-espectro-do-prbs" class="slide level2">
+<h2>Leitura do Espectro do PRBS</h2>
+<ul>
+<li>O espectro do PRBS é aproximadamente <strong>plano</strong> até uma frequência relacionada a <span class="math inline">\(1/T_{bit}\)</span>, e decai depois disso;</li>
+<li>Isso significa que <span class="math inline">\(T_{bit}\)</span> define <strong>até que frequência</strong> o sinal realmente excita o sistema;</li>
+<li><span class="math inline">\(T_{bit}\)</span> pequeno → excita frequências mais altas (dinâmicas rápidas); <span class="math inline">\(T_{bit}\)</span> grande → energia concentrada em baixas frequências.</li>
+</ul>
+<p>Por isso a regra prática <span class="math inline">\(T_{bit} \lesssim \tau_{sistema}\)</span>: garante energia suficiente na faixa de frequências onde a dinâmica do sistema realmente responde.</p>
+</section>
+<section id="resumo" class="slide level2">
+<h2>Resumo</h2>
+<ul>
+<li>Sistemas dinâmicos têm memória: <span class="math inline">\(y[k]\)</span> depende do passado de <span class="math inline">\(u\)</span> e <span class="math inline">\(y\)</span>;</li>
+<li>Simulamos um sistema ARX de referência com parâmetros conhecidos;</li>
+<li>Um degrau não excita o sistema o suficiente — é preciso um sinal <strong>persistentemente excitante</strong>;</li>
+<li>O <strong>PRBS</strong> é gerado por um LFSR, tem espectro de banda larga e amplitude limitada;</li>
+<li>Projetamos o PRBS (<span class="math inline">\(T_{bit}\)</span>, duração) e coletamos os dados <span class="math inline">\((u[k], y[k])\)</span>;</li>
+<li>A análise de Fourier confirma o conteúdo espectral do sinal de excitação.</li>
+</ul>
+<p><strong>Próxima aula:</strong> usar esses dados para <strong>estimar</strong> os parâmetros do modelo ARX por mínimos quadrados.</p>
+</section>
+<section id="section" class="slide level2" data-text-align="center">
+<h2></h2>
+<div style="margin-top: 15%; text-align: center;">
+<p><img data-src="../img/LogoUFPA.jpg" width="180"></p>
+<p><br></p>
+<h3 id="prof.-dr.-raphael-teixeira"><strong>Prof.&nbsp;Dr.&nbsp;Raphael Teixeira</strong></h3>
+<p>Universidade Federal do Pará</p>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/raphateixeira\.github\.io\/Identificacao\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
