@@ -1,36 +1,11 @@
 /*-- scss:defaults --*/
 
-// --- Paleta (uniformizada com TikZ/TemplateNotas) ---
-$cor-primaria:    #1F3A5F;
-$cor-secundaria:  #B23A48;
-$cor-acento:      #E8B23A;
-$cor-texto:       #1A1A1A;
-$cor-fundo:       #FFFFFF;
-$white:           #FFFFFF;
+// Paleta e tipografia institucionais: fonte única em
+// https://github.com/raphateixeira/.github/blob/main/assets/rtx-palette.scss
+// (baixada para rtx-palette.scss pelo workflow de publish a cada build).
+@import "rtx-palette";
 
-// Fontes:
-$main-font-size: 18px;
-$code-font-family: 'Courier New', Courier, monospace;
-
-// Configuração do Tema Bootstrap
-$primary: $cor-primaria;
-$secondary: $cor-secundaria;
-$navbar-dark-bg: $cor-primaria;
-$navbar-dark-color: $white;
-$body-bg: $cor-fundo;
-
-// Cores Específicas para Componentes do Quarto
-$body-color: $cor-texto;
-$link-color: $cor-primaria;
-// COMENTADO: QUARTO VAI USAR CORES DO CODE-THEME (MONOKAI)
-// $code-bg: #EAEAEA;
-// $code-color: $cor-texto;
 /*-- scss:rules --*/
-
-// --- Customizações Gerais ---
-h1, h2, h3, h4, h5, h6 {
-    color: $cor-texto !important;
-}
 
 // --- Customização da Apresentação (Reveal.js) ---
 
@@ -45,32 +20,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.5em !important;
 }
 
-// --- Customização da Barra Lateral do Site ---
-
-// Estilo para o item ativo na barra lateral
-.sidebar-item.active > a {
-    background-color: lighten($cor-primaria, 50%);
-    color: $cor-primaria !important; font-weight: bold;
-}
-
-// Estilo para os itens da barra lateral ao passar o mouse
-.sidebar-item > a:hover {
-    background-color: lighten($cor-primaria, 40%);
-    color: $white !important;
-}
-
-// Estilo para os links na barra lateral
-.sidebar-item > a {
-    color: $cor-texto !important;
-}
-
-// --- Customização do Rodapé do Site ---
-footer.site-footer {
-    background-color: $cor-primaria;
-    color: $white;
-}
-
-// ⬇️ NOVA REGRA: Fonte grande específica para blocos de código
+// ⬇️ Fonte grande específica para blocos de código
 .fonte-grande-codigo pre code {
     // Aumenta o tamanho da fonte do código (ex: 1.3em para ser bem maior)
     font-size: 1.6em !important;
