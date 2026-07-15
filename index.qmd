@@ -23,5 +23,9 @@ Identificação de Sistemas: Notas de ensino e pesquisa.
   <h3>Nota 3</h3>
   <p>Identificação de modelos ARX por mínimos quadrados</p>
 </a>
+<a class="categoria-card" href="Identificacao/Ident04IdentificacaoLIT.html">
+  <h3>Nota 4</h3>
+  <p>Identificação de um sistema Linear Invariante no Tempo (LIT): PRBS, mínimos quadrados e avaliação por R²</p>
+</a>
 </div>
 ```
