@@ -7,11 +7,11 @@ website:
   
 format:
   html:
-    theme: [default, TemaRTx.scss]
+    theme: [cosmo, TemaRTx.scss]
     lang: pt-BR
 
   revealjs:
-    theme: [simple, tema.scss]
+    theme: [simple, TemaRTx.scss]
     transition: fade
     slide-number: true
     footer: ""
