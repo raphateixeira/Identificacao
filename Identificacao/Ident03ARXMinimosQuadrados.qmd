@@ -365,6 +365,17 @@ O número de condição de $\boldsymbol{\Phi}$ é muito maior com o degrau, e a 
 
 ---
 
+## Ver também
+
+Este mesmo estimador (ARX por mínimos quadrados) aplicado a sistemas reais e generalizado a dinâmicas mais complexas:
+
+- [IC-DataDrive](https://raphateixeira.github.io/IC-DataDrive/) — ARX de uma bancada motor-gerador real.
+- [Projeto-Aeropendulo](https://raphateixeira.github.io/Projeto-Aeropendulo/) — mesmo estimador aplicado ao aeropêndulo.
+- [Controle MPC-FCS de gerador DFIG](https://raphateixeira.github.io/ControleDFIG/Presents/03ControleDFIGpFCS.html) (ControleDFIG) — ARX multivariável num sistema trifásico, usado como modelo de predição num MPC.
+- [SINDy](https://raphateixeira.github.io/DataDrivenControl/SINDy/SINDyNota.html) e [Koopman](https://raphateixeira.github.io/DataDrivenControl/Koopman/KoopmanNota.html) (DataDrivenControl) — o mesmo estimador de mínimos quadrados, generalizado para dinâmicas não lineares.
+
+---
+
 ## {text-align="center"}
 
 ::: {style="margin-top: 15%; text-align: center;"}

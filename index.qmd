@@ -29,3 +29,12 @@ Identificação de Sistemas: Notas de ensino e pesquisa.
 </a>
 </div>
 ```
+
+## Aplicações
+
+Estas técnicas (PRBS, ARX, mínimos quadrados) aplicadas a sistemas reais e a técnicas mais avançadas:
+
+- [IC-DataDrive](https://raphateixeira.github.io/IC-DataDrive/) - identificação ARX de uma bancada motor-gerador a partir de dados PRBS.
+- [Projeto-Aeropendulo](https://raphateixeira.github.io/Projeto-Aeropendulo/) - identificação de um modelo linear do aeropêndulo, mesma metodologia PRBS + mínimos quadrados.
+- [ControleDFIG](https://raphateixeira.github.io/ControleDFIG/) - identificação ARX aplicada a um sistema trifásico (DFIG), como etapa de um controle preditivo (FCS-MPC).
+- [DataDrivenControl](https://raphateixeira.github.io/DataDrivenControl/) - generalizações do mesmo estimador de mínimos quadrados: SINDy (dinâmicas não lineares) e Koopman (EDMD sobre observáveis).
