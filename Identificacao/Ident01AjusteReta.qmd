@@ -6,26 +6,45 @@ author: "Prof. Dr. Raphael Teixeira"
 date: ""
 editor:
   render-on-save: false
-format: 
+format:
   revealjs:
-    slide-number: true
+    theme: [simple, ../TemaRTx.scss]
+    self-contained: true
     transition: fade
-    code-line-numbers: true  # Adiciona números de linha para facilitar a explicação
-    code-copy: true          # Adiciona um botão para copiar o código
-    highlight-style: monokai # Escolha um estilo de destaque (ex: dracula, github, monokai)
+    slide-number: true
+    scrollable: true
+    width: 1600
+    height: 900
+    footer: " "
+    center: false
+    code-line-numbers: true
+    code-copy: true
+    highlight-style: monokai
+    title-slide-attributes:
+      data-background-image: "../imgs/ufpa-colorido.png"
+      data-background-size: "84px"
+      data-background-position: "top 45px center"
 ---
 
 ## Introdução ao Ajuste de Curvas
 
-Técnica estatística para modelar a relação entre variável medida e de saída: 
-
-- **Calibração:** - Sensor de temperatura:  $n$ amostras e gráfico de dispersão:
+**Calibração:** - Sensor de temperatura:  $n$ amostras e gráfico de dispersão:
 
 
 ```{python}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+
+# Fontes maiores para os gráficos, legíveis no telão (vale para o documento todo)
+plt.rcParams.update({
+    'font.size': 16,
+    'axes.titlesize': 20,
+    'axes.labelsize': 18,
+    'xtick.labelsize': 14,
+    'ytick.labelsize': 14,
+    'legend.fontsize': 14,
+})
 
 # 1. Geração dos dados
 np.random.seed(12)
@@ -39,19 +58,19 @@ df = pd.DataFrame({
 })
 
 # 2. Criando a estrutura lado a lado (1 linha, 2 colunas)
-fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+fig, ax = plt.subplots(1, 2, figsize=(15, 5))
 
 # --- Lado Esquerdo: Tabela ---
 ax[0].axis('off')  # Esconde os eixos para a tabela
 tabela = ax[0].table(
-    cellText=df.values, 
-    colLabels=df.columns, 
-    loc='center', 
+    cellText=df.values,
+    colLabels=df.columns,
+    loc='center',
     cellLoc='center'
 )
 tabela.auto_set_font_size(False)
-tabela.set_fontsize(10)
-tabela.scale(1, 1.4) # Ajusta o respiro das linhas
+tabela.set_fontsize(13)
+tabela.scale(1.15, 1.7) # Ajusta o respiro das linhas
 
 # --- Lado Direito: Gráfico ---
 ax[1].scatter(temp, tensao, color='blue', label='Dados Medidos')
@@ -76,14 +95,15 @@ $V$: Tensão medida; $T$: Temperatura; $\theta_i$: Parâmetros do modelo; $e$: E
 
 ## Modelo - Sistema de equações
 
-Uma notação geral e simples para o modelo de reta é:
+Equação do modelo linear: $y = V$ (variável dependente) e $x = T$ (variável independente).
 
 $$y =  \theta_1 x + \theta_0 + e$$
 
-Onde se convencionou $y = V$ (variável dependente) e $x = T$ (variável independente).
 
-Aplicando os dados ao modelo, resulta no sistema de equações:
+Aplicando os dados ao modelo:
 
+::: {.columns}
+::: {.column width="58%"}
 $$\begin{bmatrix}
 y_1 \\
 y_2 \\
@@ -106,10 +126,14 @@ e_2 \\
 \vdots \\
 e_n
 \end{bmatrix}$$
-
-Ou seja:
-
+:::
+::: {.column width="12%"}
+$$\huge\longrightarrow$$
+:::
+::: {.column width="30%"}
 $$\mathbf{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}$$
+:::
+:::
 
 
 ---
@@ -139,37 +163,64 @@ x_n & 1
 
 ## Estimar parâmetros que minimizam o erro
 
-A partir de $\mathbb{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}$, o erro pode ser expresso como:
+A partir de $\mathbf{y} = \mathbf{A} \boldsymbol{\theta} + \mathbf{e}$, o erro é:
 $$\mathbf{e} = \mathbf{y} - \mathbf{A} \boldsymbol{\theta}$$
 
-O erro passa a ser função dos parâmetros $\boldsymbol{\theta}$, já que $\mathbf{y}$ e $\mathbf{A}$ são conhecidos a partir dos dados medidos.
+Cada escolha de $\boldsymbol{\theta}$ gera um vetor de erros diferente:
 
-Cada escolha de $\boldsymbol{\theta}$ gera um vetor de erros diferente. 
+```{python}
+# Dados x e y (mesmos reutilizados nos slides seguintes)
+np.random.seed(12)
+x = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70])
+y = 0.05 * x + 0.5 + np.random.normal(0, 0.1, len(x))
 
-_A questão é: qual o melhor valor para $\boldsymbol{\theta}$?_
+# 1. Ajuste da reta ótima (MMQ)
+p_otimo = np.polyfit(x, y, 1)
+y_otimo = np.polyval(p_otimo, x)
 
-Isto pode ser formalizado como um problema de otimização:
+# 2. Definindo algumas retas "alternativas" para comparação
+# Reta 1: Deslocada verticalmente (theta_0 diferente)
+y_ruim_1 = p_otimo[0] * x + (p_otimo[1] + 1.0) # Inclinação igual, offset maior
 
+# Reta 2: Inclinação diferente (theta_1 diferente)
+y_ruim_2 = (p_otimo[0] * 1.5) * x + p_otimo[1] # Inclinação maior, offset igual
+
+# Reta 3: Deslocada e com inclinação um pouco diferente
+y_ruim_3 = (p_otimo[0] * 0.8) * x + (p_otimo[1] - 0.5) # Inclinação menor, offset menor
+
+# 3. Gerando o gráfico
+plt.figure(figsize=(10, 6))
+
+plt.scatter(x, y, color='blue', label='Dados Medidos ($y$)', zorder=3, s=50)
+
+# Plotando as retas
+plt.plot(x, y_otimo, color='green', linewidth=2.5, label='Reta Ótima (MMQ)', zorder=2)
+plt.plot(x, y_ruim_1, color='orange', linestyle='--', linewidth=1.5, label='Reta 1', alpha=0.7, zorder=1)
+plt.plot(x, y_ruim_2, color='purple', linestyle=':', linewidth=1.5, label='Reta 2 ', alpha=0.7, zorder=1)
+plt.plot(x, y_ruim_3, color='brown', linestyle='-.', linewidth=1.5, label='Reta 3 ', alpha=0.7, zorder=1)
+
+plt.title('Comparação de Ajustes: Minimizando o Erro', fontsize=14)
+plt.xlabel('Variável de Entrada ($x$)')
+plt.ylabel('Variável de Saída ($y$)')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.tight_layout()
+plt.show()
+```
+
+Para comparar escolhas, agregamos $\mathbf{e}$ em um único número: a função de custo $J(\boldsymbol{\theta})$.
+
+Problema de otimização:
 $$\min_{\boldsymbol{\theta}} J(\boldsymbol{\theta})$$
-
-Leia-se: "minimizar a função de custo $J$ em relação aos parâmetros $\boldsymbol{\theta}$".
-
-$J(\boldsymbol{\theta})$  é uma função que mede a agregação dos  erros individuais em um único valor a ser minimizado.
 
 ---
  
-## Observação dos Erros (Resíduos)
+## Erro Residual
 
 Erros são a distância vertical entre os pontos medidos e a reta do modelo.
 
 ```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Reutilizando os dados definidos anteriormente (x=Temp, y=Tensão)
-np.random.seed(12)
-x = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70])
-y = 0.05 * x + 0.5 + np.random.normal(0, 0.1, len(x))
+# Reutilizando x, y definidos no slide anterior
 
 # Modelo predito (Reta de referência/dada)
 y_pred = 0.05 * x + 0.5
@@ -199,81 +250,30 @@ $$e_i = y_i - \hat{y}_i$$
 
 ---
 
-### Função de Custo
+## Função de Custo
 
-É necessário definir uma forma para $J(\boldsymbol{\theta})$ que agregue os erros individuais $e_i$ em um único valor: Uma soma de valores 
+É necessário agregar os erros individuais $e_i$ em um único valor. A soma simples
 
 $$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i$$
-_não seria adequada_, pois erros positivos e negativos poderiam se cancelar. Uma abordagem comum é utilizar a soma dos quadrados dos erros:
 
-$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - \hat{y}_i]^2$$
+não serve — erros positivos e negativos se cancelam. Por isso, usamos a soma dos quadrados:
 
-Que pode ser reescrita para o modelo escolhido (reta) como:
-
-$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2$$
-
----
-### Função de Custo
-
-Para cada escolha de parâmetros $\boldsymbol{\theta} = [\theta_0, \theta_1]^T$, calcula-se o valor da função de custo $J(\boldsymbol{\theta})$. 
-
-Alguns exemplos de retas com diferentes parâmetros e seus respectivos erros:
-
-```{python}
-# Dados x e y já estão definidos do slide anterior.
-
-# 1. Ajuste da reta ótima (MMQ)
-p_otimo = np.polyfit(x, y, 1)
-y_otimo = np.polyval(p_otimo, x)
-
-# 2. Definindo algumas retas "alternativas" para comparação
-# Reta 1: Deslocada verticalmente (theta_0 diferente)
-y_ruim_1 = p_otimo[0] * x + (p_otimo[1] + 1.0) # Inclinação igual, offset maior
-
-# Reta 2: Inclinação diferente (theta_1 diferente)
-y_ruim_2 = (p_otimo[0] * 1.5) * x + p_otimo[1] # Inclinação maior, offset igual
-
-# Reta 3: Deslocada e com inclinação um pouco diferente
-y_ruim_3 = (p_otimo[0] * 0.8) * x + (p_otimo[1] - 0.5) # Inclinação menor, offset menor
-
-
-# 3. Gerando o gráfico
-plt.figure(figsize=(10, 6))
-
-plt.scatter(x, y, color='blue', label='Dados Medidos ($y$)', zorder=3, s=50)
-
-# Plotando as retas
-plt.plot(x, y_otimo, color='green', linewidth=2.5, label='Reta Ótima (MMQ)', zorder=2)
-plt.plot(x, y_ruim_1, color='orange', linestyle='--', linewidth=1.5, label='Reta 1', alpha=0.7, zorder=1)
-plt.plot(x, y_ruim_2, color='purple', linestyle=':', linewidth=1.5, label='Reta 2 ', alpha=0.7, zorder=1)
-plt.plot(x, y_ruim_3, color='brown', linestyle='-.', linewidth=1.5, label='Reta 3 ', alpha=0.7, zorder=1)
-
-
-plt.title('Comparação de Ajustes: Minimizando o Erro', fontsize=14)
-plt.xlabel('Variável de Entrada ($x$)')
-plt.ylabel('Variável de Saída ($y$)')
-plt.legend()
-plt.grid(True, linestyle='--', alpha=0.6)
-plt.tight_layout()
-plt.show()
-```
+$$J(\boldsymbol{\theta}) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} [y_i - \hat{y}_i]^2 = \sum_{i=1}^{n} [y_i - (\theta_1 x_i + \theta_0)]^2$$
 
 ---
 
 ## Abordagem matricial
 
-Como o erro é dado por $\mathbf{e} = \mathbf{y} - \mathbf{A} \boldsymbol{\theta}$, pode-se impor que o erro seja zero:
+Minimizar $J(\boldsymbol{\theta}) = \mathbf{e}^T \mathbf{e} = (\mathbf{y} - \mathbf{A} \boldsymbol{\theta})^T(\mathbf{y} - \mathbf{A} \boldsymbol{\theta})$ equivale a zerar o gradiente em relação a $\boldsymbol{\theta}$:
 
-$$\mathbf{A} \boldsymbol{\theta} = \mathbf{y} $$
+$$\frac{\partial J}{\partial \boldsymbol{\theta}} = -2\mathbf{A}^T(\mathbf{y} - \mathbf{A}\boldsymbol{\theta}) = \mathbf{0}$$
 
-Se a matriz $\mathbf{A}$ for quadrada e inversível, a solução direta $\boldsymbol{\theta} = \mathbf{A}^{-1} \mathbf{y}$. Mas nos casos práticos $\mathbf{A}$ não é quadrada. Neste caso pode-se aplicar $\mathbf{A}^T$ em ambos os lados da equação:
-$$\mathbf{A}^T \mathbf{A} \boldsymbol{\theta} = \mathbf{A}^T \mathbf{y} $$
+O que resulta nas **equações normais**:
 
-Se o produto $\mathbf{A}^T \mathbf{A}$ for inversível então aplica-se esta inversa a ambos os lados:
+$$\mathbf{A}^T \mathbf{A}\, \boldsymbol{\theta} = \mathbf{A}^T \mathbf{y}$$
 
-$$(\mathbf{A}^T \mathbf{A})^{-1}(\mathbf{A}^T \mathbf{A})\boldsymbol{\theta} = (\mathbf{A}^T \mathbf{A})^{-1} \mathbf{A}^T \mathbf{y}$$
+Se o produto $\mathbf{A}^T \mathbf{A}$ for inversível:
 
-O que resulta em:
 $$\boldsymbol{\theta} = (\mathbf{A}^T \mathbf{A})^{-1} \mathbf{A}^T \mathbf{y}$$
 
 ---
@@ -301,10 +301,13 @@ A matriz de regressores $\mathbf{A}$ é construída como:
 #| echo: true
 # Matriz de regressão: n linhas e 2 colunas
 A = np.column_stack((np.ones(n), x))
-print(A) # Mostra as 3 primeiras linhas
+print(A)
 ```
 
+---
+
 Estimação de parâmetros por mínimos quadrados:
+
 ```{python}
 #| echo: true
 # Estimativa via Equação Normal: theta = (A'A)^-1 A'y
@@ -333,11 +336,11 @@ plt.show()
 
 ---
 
-## {text-align="center"}
+## {background-color="#1B365D" text-align="center"}
 
-::: {style="margin-top: 15%; text-align: center;"}
+::: {style="margin-top: 15%; text-align: center; color: #ffffff;"}
 
-![](../img/LogoUFPA.jpg){width="180px"}
+![](../imgs/ufpa-branco.png){width="180px"}
 
 <br>
 
