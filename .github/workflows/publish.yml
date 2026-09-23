@@ -18,4 +18,4 @@ jobs:
       needs_pdf2svg: true
       needs_tinytex: true
       tinytex_packages: "pgf standalone xcolor"
-      output_dir: "docs"
+      output_dir: "_site"

@@ -1,7 +1,6 @@
 project:
   type: website
-  output-dir: docs
-
+  output-dir: _site
 website:
   title: "Identificação de Sistemas"
   
