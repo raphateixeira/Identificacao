@@ -421,7 +421,7 @@ Por isso a regra prática $T_{bit} \lesssim \tau_{sistema}$: garante energia suf
 
 Esta mesma lógica de projeto de PRBS e persistência de excitação aparece em:
 
-- [IC-DataDrive](https://raphateixeira.github.io/IC-DataDrive/) — PRBS aplicado à identificação de uma bancada motor-gerador real.
+- [ControleCC2CC](https://raphateixeira.github.io/ControleCC2CC/) — PRBS aplicado à identificação de uma bancada motor-gerador real.
 - [Projeto-Aeropendulo](https://raphateixeira.github.io/Projeto-Aeropendulo/) — PRBS aplicado à identificação do aeropêndulo.
 - [DeePC — Data-Enabled Predictive Control](https://raphateixeira.github.io/DataDrivenControl/DeePC/DeePCNota.html) (DataDrivenControl) — a persistência de excitação reaparece como condição de posto no Lema de Willems, base do controle preditivo direto sobre dados.
 
